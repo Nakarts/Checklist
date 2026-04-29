@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,159 +10,225 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap">
 <style>
 *,::before,::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{
+
+/* ── DARK / LIGHT THEME ── */
+body.dark{
   --a:#D4FF3C;--bg:#080808;--l1:#101010;--l2:#181818;--l3:#202020;--l4:#2a2a2a;
   --b0:rgba(255,255,255,.05);--b1:rgba(255,255,255,.09);--b2:rgba(255,255,255,.15);
   --t0:#fff;--t1:#f0f0f0;--t2:#bbb;--t3:#777;--t4:#444;
-  --grn:#3ddc84;--red:#ff5252;--rr:13px;--rs:8px;--nav:62px;
+  --grn:#3ddc84;--red:#ff5252;--card-shadow:0 2px 12px rgba(0,0,0,.4);
 }
+body.light{
+  --a:#5a9e00;--bg:#f4f4f0;--l1:#ffffff;--l2:#f0eeea;--l3:#e4e2dd;--l4:#d4d2cc;
+  --b0:rgba(0,0,0,.06);--b1:rgba(0,0,0,.1);--b2:rgba(0,0,0,.16);
+  --t0:#111;--t1:#222;--t2:#555;--t3:#888;--t4:#aaa;
+  --grn:#2a9a5c;--red:#d94040;--card-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
 html{overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body{background:var(--bg);color:var(--t0);font-family:"DM Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100dvh;overflow-x:hidden;padding-bottom:calc(var(--nav)+env(safe-area-inset-bottom)+8px)}
+body{background:var(--bg);color:var(--t0);font-family:"DM Sans",system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100dvh;overflow-x:hidden;padding-bottom:calc(68px+env(safe-area-inset-bottom)+8px);transition:background .2s,color .2s}
 ::-webkit-scrollbar{display:none}
 input[type=number]{-webkit-appearance:none;-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
+/* HEADER */
 .hdr{position:sticky;top:0;z-index:100;height:52px;background:rgba(8,8,8,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--b0);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+body.light .hdr{background:rgba(244,244,240,.93)}
 .brand{display:flex;align-items:center;gap:9px}
 .brand-nm{font-family:"Syne",sans-serif;font-size:19px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
 .brand-nm em{color:var(--a);font-style:normal}
-.hdr-r{font-size:11px;color:var(--t3);font-weight:500}
+.hdr-actions{display:flex;align-items:center;gap:8px}
+.theme-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--b1);background:var(--l2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.theme-btn:active{transform:scale(.88)}
+.hdr-sub{font-size:11px;color:var(--t3);font-weight:500}
 
-.nav{position:fixed;bottom:0;left:0;right:0;z-index:200;height:calc(var(--nav)+env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(8,8,8,.97);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-top:1px solid var(--b0);display:flex}
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:200;height:calc(68px+env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(8,8,8,.97);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-top:1px solid var(--b0);display:flex}
+body.light .nav{background:rgba(244,244,240,.97)}
 .nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;color:var(--t4);font-family:"DM Sans",sans-serif;font-size:8.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:0 2px;transition:color .15s;position:relative}
 .nb svg{width:19px;height:19px;stroke-width:1.8}
 .nb.on{color:var(--a)}
 .nb.on::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:18px;height:2px;background:var(--a);border-radius:0 0 3px 3px}
 
+/* PAGES */
 .pg{display:none}
 .pg.on{display:block;animation:fadeUp .2s cubic-bezier(.22,1,.36,1)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .pgh{padding:16px 16px 10px}
-.pgh-t{font-family:"Syne",sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;line-height:1}
+.pgh-t{font-family:"Syne",sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;line-height:1;color:var(--t0)}
 .pgh-s{font-size:12px;color:var(--t3);margin-top:3px}
 
+/* TABS */
 .stabs{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
 .stabs::-webkit-scrollbar{display:none}
-.stab{flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid var(--b1);background:var(--l1);color:var(--t2);font-size:11px;font-weight:600;cursor:pointer;transition:all .12s;white-space:nowrap}
+.stab{flex-shrink:0;padding:7px 13px;border-radius:20px;border:1px solid var(--b1);background:var(--l1);color:var(--t2);font-size:11px;font-weight:600;cursor:pointer;transition:all .12s;white-space:nowrap;box-shadow:var(--card-shadow)}
 .stab:active{transform:scale(.94)}
 .stab.on{background:var(--a);color:#000;border-color:var(--a);font-weight:700}
 .stab.new-cat{color:var(--a);border-color:rgba(212,255,60,.25);border-style:dashed}
+body.light .stab.new-cat{color:var(--a);border-color:rgba(90,158,0,.25)}
 
+/* PROGRESS */
 .prog-wrap{padding:0 16px 14px}
 .prog-top{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:6px}
-.prog-bar{height:5px;background:var(--l3);border-radius:3px;overflow:hidden}
+.prog-bar{height:6px;background:var(--l3);border-radius:3px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.2)}
 .prog-fill{height:100%;background:var(--a);border-radius:3px;transition:width .4s cubic-bezier(.22,1,.36,1)}
 
-.cat-sec{margin:0 16px 8px}
-.cat-hd{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:var(--l1);border:1px solid var(--b0);border-radius:var(--rr);cursor:pointer;user-select:none;transition:background .1s}
+/* CATEGORY ACCORDION */
+.cat-sec{margin:0 16px 9px}
+.cat-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;background:var(--l1);border:1px solid var(--b0);border-radius:13px;cursor:pointer;user-select:none;transition:background .1s;box-shadow:var(--card-shadow)}
 .cat-hd:active{background:var(--l2)}
-.cat-sec.open .cat-hd{border-radius:var(--rr) var(--rr) 0 0;border-bottom-color:transparent}
-.cat-hd-l{display:flex;align-items:center;gap:8px}
+.cat-sec.open .cat-hd{border-radius:13px 13px 0 0;border-bottom-color:transparent}
+.cat-hd-l{display:flex;align-items:center;gap:9px}
 .cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .cat-icon{font-size:14px;line-height:1}
-.cat-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.cat-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--t0)}
 .cat-hd-r{display:flex;align-items:center;gap:10px}
 .cat-cnt{font-size:11px;color:var(--t3)}
 .chev{color:var(--t3);transition:transform .2s}
 .cat-sec.open .chev{transform:rotate(180deg)}
-.cat-items{display:none;flex-direction:column;border:1px solid var(--b0);border-top:none;border-radius:0 0 var(--rr) var(--rr);overflow:hidden;background:var(--l1)}
+.cat-items{display:none;flex-direction:column;border:1px solid var(--b0);border-top:none;border-radius:0 0 13px 13px;overflow:hidden;background:var(--l1);box-shadow:var(--card-shadow)}
 .cat-sec.open .cat-items{display:flex}
 
-.prod-row{display:flex;align-items:center;padding:11px 13px;gap:9px;background:var(--l1)}
+/* PRODUCT ROW */
+.prod-row{display:flex;align-items:center;padding:12px 13px;gap:9px;background:var(--l1);transition:background .1s}
 .prod-row:not(:last-child){border-bottom:1px solid var(--b0)}
 .prod-row.ck{opacity:.4}
-.prod-row.stocked{border-left:3px solid var(--grn)}
 .prod-row.has-stock{border-left:3px solid var(--grn)}
-.chkbox{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--b2);background:var(--l2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s}
-.chkbox:active{transform:scale(.88)}
+.chkbox{width:26px;height:26px;border-radius:7px;border:2px solid var(--b2);background:var(--l2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s}
+.chkbox:active{transform:scale(.85)}
 .chkbox svg{width:13px;height:13px;color:#000;display:none}
 .chkbox.on{background:var(--a);border-color:var(--a)}
 .chkbox.on svg{display:block}
 .prod-info{flex:1;min-width:0}
-.prod-nm{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prod-dt{font-size:10px;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stock-badge{font-size:10px;color:var(--grn);margin-top:2px;font-weight:600}
+.prod-nm{font-size:13px;font-weight:600;color:var(--t0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prod-dt{font-size:10px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.need-badge{font-size:10px;color:var(--grn);margin-top:3px;font-weight:600}
 .qty-col{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0}
 .qty-badge{font-family:"Syne",sans-serif;font-size:12px;font-weight:700;color:var(--a);white-space:nowrap}
-.stk-btn{width:28px;height:22px;border-radius:5px;border:1px solid var(--b1);background:var(--l2);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;gap:2px;transition:all .12s;position:relative}
-.stk-btn:active{border-color:var(--grn);color:var(--grn)}
-.stk-num{font-family:"Syne",sans-serif;font-size:9px;font-weight:800;color:var(--grn)}
-.edit-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--b1);background:var(--l2);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s}
+.edit-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--b1);background:var(--l2);color:var(--t3);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s}
 .edit-btn:active{border-color:var(--a);color:var(--a);transform:scale(.88)}
 .edit-btn svg{width:12px;height:12px}
 
-/* STOCKS PAGE */
-.stock-row{display:flex;align-items:center;padding:11px 13px;gap:9px;background:var(--l1)}
+/* PORTIONS */
+.portion-bar-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.portion-bar{flex:1;height:5px;background:var(--l3);border-radius:3px;overflow:hidden}
+.portion-fill{height:100%;border-radius:3px;transition:width .3s}
+.port-sub,.port-add{width:28px;height:28px;border-radius:7px;border:1px solid var(--b1);background:var(--l2);color:var(--t1);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.port-sub:active,.port-add:active{border-color:var(--a);color:var(--a);transform:scale(.88)}
+.port-add{background:rgba(212,255,60,.08);border-color:rgba(212,255,60,.2);color:var(--a)}
+.port-unit{font-size:10px;color:var(--t3);white-space:nowrap}
+
+/* RESET BUTTON */
+.reset-btn{display:inline-flex;align-items:center;gap:6px;margin:0 16px 8px;padding:8px 14px;border-radius:20px;border:1px dashed var(--b2);background:var(--l1);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .12s}
+.reset-btn:active{border-color:var(--red);color:var(--red)}
+
+/* STOCK PAGE */
+.stock-row{display:flex;align-items:center;padding:12px 13px;gap:9px;background:var(--l1);transition:background .1s}
 .stock-row:not(:last-child){border-bottom:1px solid var(--b0)}
 .stock-row.has-stock{background:rgba(61,220,132,.04)}
-.stock-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.stk-minus,.stk-plus{width:32px;height:32px;border-radius:8px;border:1px solid var(--b1);background:var(--l2);color:var(--t1);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
-.stk-minus:active,.stk-plus:active{border-color:var(--a);color:var(--a);transform:scale(.88)}
-.stk-val{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;color:var(--t3);min-width:28px;text-align:center}
-.stk-val.pos{color:var(--grn)}
+.frac-ctrl{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.frac-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--b1);background:var(--l2);color:var(--t1);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0}
+.frac-btn:active{border-color:var(--a);color:var(--a);transform:scale(.88)}
+.frac-val{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;color:var(--t3);min-width:28px;text-align:center}
+.frac-val.pos{color:var(--grn)}
+.frac-hint{font-size:9px;color:var(--t4);text-align:center;margin-top:1px}
+
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:12px}
+.cal-month-title{font-family:"Syne",sans-serif;font-size:18px;font-weight:800;color:var(--t0)}
+.cal-nav-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--b1);background:var(--l1);color:var(--t1);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.cal-nav-btn:active{border-color:var(--a);color:var(--a);transform:scale(.88)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:0 16px}
+.cal-dh{font-size:10px;font-weight:700;color:var(--t3);text-align:center;padding:4px 0;text-transform:uppercase;letter-spacing:.04em}
+.cal-d{font-size:13px;color:var(--t2);text-align:center;padding:8px 0;border-radius:8px;position:relative;cursor:default;font-weight:500}
+.cal-d.empty{background:transparent}
+.cal-d.today{background:var(--a);color:#000;font-weight:800;border-radius:8px}
+.cal-d.sess-day{background:rgba(212,255,60,.08);border:1px solid rgba(212,255,60,.2);border-radius:8px}
+body.light .cal-d.today{background:var(--a);color:#fff}
+.cal-dot{width:4px;height:4px;border-radius:50%;position:absolute;bottom:3px;left:50%;transform:translateX(-50%)}
+
+/* UPCOMING CARDS */
+.upcoming-card{display:flex;align-items:center;justify-content:space-between;background:var(--l1);border:1px solid var(--b0);border-radius:13px;padding:14px 15px;margin:0 16px 8px;box-shadow:var(--card-shadow)}
+.upcoming-card.urgent{border-color:rgba(212,255,60,.3);background:rgba(212,255,60,.04)}
+.up-name{font-family:"Syne",sans-serif;font-size:16px;font-weight:800;color:var(--t0)}
+.up-label{font-size:11px;color:var(--t3);margin-top:2px}
+.up-days{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;color:var(--t2);text-align:right}
+.up-days.urgent-txt{color:var(--a)}
+.up-prog{font-size:10px;color:var(--t3);text-align:right;margin-top:2px}
+.week-card{background:var(--l1);border:1px solid var(--b0);border-radius:13px;padding:14px 15px;margin:0 16px 8px;box-shadow:var(--card-shadow)}
 
 /* BILAN */
 .stat4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.stc{background:var(--l1);border:1px solid var(--b0);border-radius:var(--rr);padding:14px 13px;position:relative;overflow:hidden}
+.stc{background:var(--l1);border:1px solid var(--b0);border-radius:13px;padding:14px 13px;position:relative;overflow:hidden;box-shadow:var(--card-shadow)}
 .stc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--a)}
 .stc-v{font-family:"Syne",sans-serif;font-size:30px;font-weight:800;color:var(--a);line-height:1}
 .stc-u{font-size:9px;color:rgba(212,255,60,.65);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
 .stc-l{font-size:10px;color:var(--t3);margin-top:5px}
-.sess-row{background:var(--l1);border:1px solid var(--b0);border-radius:var(--rr);padding:13px;margin-bottom:8px}
+body.light .stc-u{color:rgba(90,158,0,.8)}
+.sess-row{background:var(--l1);border:1px solid var(--b0);border-radius:13px;padding:13px;margin-bottom:8px;box-shadow:var(--card-shadow)}
 .sess-row-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.sess-row-nm{font-family:"Syne",sans-serif;font-size:15px;font-weight:800}
+.sess-row-nm{font-family:"Syne",sans-serif;font-size:15px;font-weight:800;color:var(--t0)}
 .sess-row-dt{font-size:10px;color:var(--t3);margin-top:2px}
 .sess-pct{font-family:"Syne",sans-serif;font-size:20px;font-weight:800}
 .sess-prog-bar{height:4px;background:var(--l3);border-radius:2px;overflow:hidden}
 
+/* ADD BUTTON */
 .add-wrap{padding:4px 16px 14px}
-.add-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;padding:12px;background:rgba(212,255,60,.07);border:1px dashed rgba(212,255,60,.28);border-radius:var(--rr);color:var(--a);font-family:"Syne",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s}
+.add-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:7px;padding:13px;background:rgba(212,255,60,.07);border:1px dashed rgba(212,255,60,.3);border-radius:13px;color:var(--a);font-family:"Syne",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s}
 .add-btn:active{background:rgba(212,255,60,.13)}
 .add-btn svg{width:15px;height:15px}
 
+/* SYNC ROW */
+.sync-row{display:flex;gap:8px;padding:0 16px 12px}
+.sync-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;background:var(--l1);border:1px solid var(--b1);border-radius:10px;color:var(--t2);font-size:11px;font-weight:600;cursor:pointer;transition:all .12s;box-shadow:var(--card-shadow)}
+.sync-btn:active{border-color:var(--a);color:var(--a);transform:scale(.97)}
+.sync-btn svg{width:14px;height:14px}
+
+/* MODALS */
 .mb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;align-items:flex-end;justify-content:center}
 .mb.show{display:flex}
 .ms-sh{background:var(--l1);border:1px solid var(--b2);border-radius:20px 20px 0 0;padding:8px 18px calc(22px + env(safe-area-inset-bottom));width:100%;max-width:520px;animation:su .22s cubic-bezier(.22,1,.36,1);max-height:92dvh;overflow-y:auto}
 @keyframes su{from{transform:translateY(36px);opacity:0}to{transform:translateY(0);opacity:1}}
 .mp{width:36px;height:4px;background:var(--b2);border-radius:2px;margin:10px auto 16px}
-.mt{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:14px}
+.mt{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-bottom:14px;color:var(--t0)}
 .fg{margin-bottom:10px}
 .fl{display:block;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.fi{width:100%;background:var(--l2);border:1px solid var(--b2);border-radius:var(--rs);color:var(--t0);font-family:"DM Sans",sans-serif;font-size:14px;padding:10px 12px;transition:border-color .12s}
+.fi{width:100%;background:var(--l2);border:1px solid var(--b2);border-radius:9px;color:var(--t0);font-family:"DM Sans",sans-serif;font-size:14px;padding:10px 12px;transition:border-color .12s}
 .fi:focus{outline:none;border-color:var(--a)}
 .fi-sm{font-size:20px;font-family:"Syne",sans-serif;font-weight:700;text-align:center;padding:10px 6px}
 .fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .fr4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
 .fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.section-lbl{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.06em;margin:10px 0 6px}
+.sect-lbl{font-size:10px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.06em;margin:12px 0 6px;display:block}
+body.light .sect-lbl{color:var(--a)}
 .mbtns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .mbtns .btn{flex:1;min-width:80px;padding:12px;font-size:13px}
 
-.btn{background:var(--a);color:#000;border:none;border-radius:var(--rr);padding:13px;font-family:"Syne",sans-serif;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:opacity .12s,transform .1s}
+.btn{background:var(--a);color:#000;border:none;border-radius:13px;padding:13px;font-family:"Syne",sans-serif;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:opacity .12s,transform .1s;box-shadow:0 3px 10px rgba(212,255,60,.2)}
 .btn:active{opacity:.88;transform:scale(.97)}
-.btn.sec{background:var(--l2);color:var(--t0);border:1px solid var(--b2);font-weight:500;font-size:13px;font-family:"DM Sans",sans-serif;text-transform:none;letter-spacing:0}
-.btn.danger{background:rgba(255,82,82,.08);color:var(--red);border:1px solid rgba(255,82,82,.18);font-weight:500;font-size:13px;font-family:"DM Sans",sans-serif;text-transform:none;letter-spacing:0;display:none}
+.btn.sec{background:var(--l2);color:var(--t0);border:1px solid var(--b2);font-weight:500;font-size:13px;font-family:"DM Sans",sans-serif;text-transform:none;letter-spacing:0;box-shadow:none}
+.btn.danger{background:rgba(255,82,82,.08);color:var(--red);border:1px solid rgba(255,82,82,.18);font-weight:500;font-size:13px;font-family:"DM Sans",sans-serif;text-transform:none;letter-spacing:0;box-shadow:none;display:none}
 
 .color-dot{width:30px;height:30px;border-radius:7px;cursor:pointer;border:3px solid transparent;transition:border-color .12s;flex-shrink:0}
-.color-dot.sel{border-color:#fff}
+.color-dot.sel{border-color:var(--t0)}
 #colorPicker{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
 
 .cfb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:900;align-items:center;justify-content:center;padding:20px}
 .cfb.show{display:flex}
-.cf-box{background:var(--l1);border:1px solid var(--b2);border-radius:var(--rr);padding:20px;width:100%;max-width:300px}
-.cf-t{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;margin-bottom:6px}
+.cf-box{background:var(--l1);border:1px solid var(--b2);border-radius:13px;padding:20px;width:100%;max-width:300px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.cf-t{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;color:var(--t0)}
 .cf-m{font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.5}
 .cf-btns{display:flex;gap:7px}
 .cf-btns .btn{flex:1;padding:11px;font-size:13px}
 
-.toast{position:fixed;bottom:calc(var(--nav)+env(safe-area-inset-bottom)+48px);left:50%;transform:translateX(-50%) translateY(10px);background:var(--l4);color:var(--t0);border:1px solid var(--b2);border-radius:24px;padding:8px 16px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;z-index:999;white-space:nowrap;transition:all .22s}
+.toast{position:fixed;bottom:calc(68px+env(safe-area-inset-bottom)+48px);left:50%;transform:translateX(-50%) translateY(10px);background:var(--l4);color:var(--t0);border:1px solid var(--b2);border-radius:24px;padding:8px 16px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;z-index:999;white-space:nowrap;transition:all .22s;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .empty{font-size:13px;color:var(--t4);text-align:center;padding:24px 0}
 .shd-t{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
 .pad{padding:16px}
 </style>
 </head>
-<body>
+<body class="dark">
 
 <header class="hdr">
   <div class="brand">
@@ -171,7 +238,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     </svg>
     <span class="brand-nm">THIA<em>THIE</em></span>
   </div>
-  <div class="hdr-r">Stocks &amp; Courses</div>
+  <div class="hdr-actions">
+    <div class="hdr-sub" id="todayDate"></div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">&#9728;&#65039;</button>
+  </div>
 </header>
 
 <!-- CHECK -->
@@ -182,6 +252,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div class="prog-top"><span id="progLabel">0/0 articles</span><span id="progPct">0%</span></div>
     <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
   </div>
+  <div id="resetBtnWrap"></div>
   <div id="catList"></div>
   <div class="add-wrap">
     <div class="add-btn" onclick="openAddProd()">
@@ -193,13 +264,23 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
 <!-- STOCKS -->
 <div class="pg" id="pg_stocks">
-  <div class="pgh"><div class="pgh-t">Mon Stock</div><div class="pgh-s">Ce que j&apos;ai d&eacute;j&agrave; &agrave; la maison</div></div>
+  <div class="pgh"><div class="pgh-t">Mon stock</div><div class="pgh-s">&#188; · ½ · ¾ · 1 · 2… &#8679;&#8681; pour ajuster</div></div>
   <div id="stockList"></div>
 </div>
 
 <!-- PRODUITS -->
 <div class="pg" id="pg_prods">
-  <div class="pgh"><div class="pgh-t">Produits</div><div class="pgh-s">Catalogue complet &mdash; tout modifier</div></div>
+  <div class="pgh"><div class="pgh-t">Produits</div><div class="pgh-s">Catalogue complet</div></div>
+  <div class="sync-row">
+    <div class="sync-btn" onclick="exportData()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exporter
+    </div>
+    <div class="sync-btn" onclick="importData()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      Importer
+    </div>
+  </div>
   <div class="stabs" id="prodTabs"></div>
   <div id="prodList"></div>
   <div class="add-wrap">
@@ -210,9 +291,18 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   </div>
 </div>
 
+<!-- AGENDA -->
+<div class="pg" id="pg_agenda">
+  <div class="pgh"><div class="pgh-t">Agenda</div><div class="pgh-s">Calendrier des sessions</div></div>
+  <div style="margin-top:4px" id="calGrid"></div>
+  <div class="pgh" style="padding-top:14px"><div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Prochaines sessions</div></div>
+  <div id="upcomingList"></div>
+  <div id="weeklyReminder"></div>
+</div>
+
 <!-- BILAN -->
 <div class="pg" id="pg_bilan">
-  <div class="pgh"><div class="pgh-t">Bilan</div><div class="pgh-s">Vue annuelle compl&egrave;te</div></div>
+  <div class="pgh"><div class="pgh-t">Bilan</div><div class="pgh-s">Vue annuelle</div></div>
   <div class="pad" style="padding-top:4px">
     <div class="stat4" id="bilanStats"></div>
     <div class="shd-t" style="margin-bottom:10px">Sessions</div>
@@ -234,25 +324,15 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
     Produits
   </button>
+  <button class="nb" id="nb_agenda" onclick="go('agenda')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Agenda
+  </button>
   <button class="nb" id="nb_bilan" onclick="go('bilan')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Bilan
   </button>
 </nav>
-
-<!-- MODAL: Stock rapide -->
-<div class="mb" id="stockModal" onclick="if(event.target===this)closeStockModal()">
-  <div class="ms-sh">
-    <div class="mp"></div>
-    <div class="mt">Stock actuel</div>
-    <div style="font-size:13px;color:var(--t2);margin-bottom:14px" id="stockEditName"></div>
-    <div class="fg"><label class="fl">Quantit&eacute; que j&apos;ai d&eacute;j&agrave;</label><input class="fi fi-sm" id="fStockQty" type="number" min="0" placeholder="0"></div>
-    <div class="mbtns">
-      <button class="btn sec" onclick="closeStockModal()">Annuler</button>
-      <button class="btn" onclick="saveStockEdit()">Mettre &agrave; jour</button>
-    </div>
-  </div>
-</div>
 
 <!-- MODAL: Produit -->
 <div class="mb" id="prodModal" onclick="if(event.target===this)closeProdModal()">
@@ -260,25 +340,29 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div class="mp"></div>
     <div class="mt" id="prodModalT">Produit</div>
     <div class="fg"><label class="fl">Nom</label><input class="fi" id="fProdName" type="text" placeholder="Ex: Gel douche Cottage 560ml"></div>
-    <div class="fg"><label class="fl">Cat&eacute;gorie</label><select class="fi" id="fCat"></select></div>
     <div class="fr2">
-      <div class="fg"><label class="fl">Prix unit. (&euro;)</label><input class="fi" id="fPrice" type="number" min="0" step="0.01" placeholder="3.80"></div>
-      <div class="fg"><label class="fl">O&ugrave; acheter</label><input class="fi" id="fWhere" type="text" placeholder="Action &middot; Lidl"></div>
+      <div class="fg"><label class="fl">Cat&eacute;gorie</label><select class="fi" id="fCat"></select></div>
+      <div class="fg"><label class="fl">Unit&eacute;</label><input class="fi" id="fUnit" type="text" placeholder="unit&eacute;"></div>
+    </div>
+    <div class="fr2">
+      <div class="fg"><label class="fl">Prix (&euro;)</label><input class="fi" id="fPrice" type="number" min="0" step="0.01" placeholder="3.80"></div>
+      <div class="fg"><label class="fl">O&ugrave; acheter</label><input class="fi" id="fWhere" type="text" placeholder="Action · Lidl"></div>
     </div>
     <div class="fg"><label class="fl">Dur&eacute;e / note</label><input class="fi" id="fDuration" type="text" placeholder="~2 mois"></div>
-    <div class="section-lbl">Quantit&eacute;s Hygi&egrave;ne &amp; Entretien (sessions annuelles)</div>
+    <span class="sect-lbl">&#128198; Hygi&egrave;ne &amp; Entretien (sessions annuelles)</span>
     <div class="fr4">
       <div class="fg"><label class="fl">Janvier</label><input class="fi fi-sm" id="fQtyJan" type="number" min="0" placeholder="0"></div>
       <div class="fg"><label class="fl">Juillet</label><input class="fi fi-sm" id="fQtyJul" type="number" min="0" placeholder="0"></div>
       <div class="fg"><label class="fl">Avril</label><input class="fi fi-sm" id="fQtyApr" type="number" min="0" placeholder="0"></div>
       <div class="fg"><label class="fl">Octobre</label><input class="fi fi-sm" id="fQtyOct" type="number" min="0" placeholder="0"></div>
     </div>
-    <div class="section-lbl">Quantit&eacute;s Alimentaire</div>
+    <span class="sect-lbl">&#127869; Alimentaire (fr&eacute;quence)</span>
     <div class="fr3">
       <div class="fg"><label class="fl">Semaine</label><input class="fi fi-sm" id="fQtySem" type="number" min="0" placeholder="0"></div>
       <div class="fg"><label class="fl">Mois</label><input class="fi fi-sm" id="fQtyMois" type="number" min="0" placeholder="0"></div>
       <div class="fg"><label class="fl">Trimestre</label><input class="fi fi-sm" id="fQtyTri" type="number" min="0" placeholder="0"></div>
     </div>
+    <div class="fg"><label class="fl">&#128293; Portions par semaine (alim uniquement — 0 = pas de portions)</label><input class="fi fi-sm" id="fPortions" type="number" min="0" placeholder="0" style="width:80px;display:inline-block"></div>
     <div class="mbtns">
       <button class="btn danger" id="deleteProdBtn" onclick="deleteProdConfirm()">Supprimer</button>
       <button class="btn sec" onclick="closeProdModal()">Annuler</button>
@@ -318,155 +402,167 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== DONNEES PAR DEFAUT =====
+
+/* ═══════════════════════════════
+   THIATHIE v4 — JS
+═══════════════════════════════ */
+
+// ── DEFAULT DATA ──────────────────────────────────────────
 var DEF_CATS = [
-  {id:"hygiene",   name:"Hygi\u00e8ne",              color:"#3ddc84", icon:"🧴"},
-  {id:"parfums",   name:"Parfums",                    color:"#ffbb33", icon:"✨"},
-  {id:"entretien", name:"Entretien",                  color:"#5b9fff", icon:"🧹"},
-  {id:"frais",     name:"Frais semaine",              color:"#ff8c42", icon:"🥦"},
-  {id:"proteines", name:"Prot\u00e9ines semaine",     color:"#ff5252", icon:"🥩"},
-  {id:"congelateur",name:"Cong\u00e9lateur",          color:"#56b4e9", icon:"🧊"},
-  {id:"sauces",    name:"Sauces & Bocaux",            color:"#cc79f7", icon:"🫙"},
-  {id:"economat",  name:"\u00c9conomat",              color:"#c8a96e", icon:"📦"},
-  {id:"complements",name:"Compl\u00e9ments",          color:"#D4FF3C", icon:"💊"}
+  {id:"hygiene",    name:"Hygi\u00e8ne",           color:"#3ddc84", icon:"🧴"},
+  {id:"parfums",    name:"Parfums",                  color:"#ffbb33", icon:"✨"},
+  {id:"entretien",  name:"Entretien",                color:"#5b9fff", icon:"🧹"},
+  {id:"frais",      name:"Frais semaine",            color:"#ff8c42", icon:"🥦"},
+  {id:"proteines",  name:"Prot\u00e9ines",           color:"#ff5252", icon:"🥩"},
+  {id:"congelateur",name:"Cong\u00e9lateur",         color:"#56b4e9", icon:"🧊"},
+  {id:"sauces",     name:"Sauces & Bocaux",          color:"#cc79f7", icon:"🫙"},
+  {id:"economat",   name:"\u00c9conomat",            color:"#c8a96e", icon:"📦"},
+  {id:"complements",name:"Compl\u00e9ments",         color:"#D4FF3C", icon:"💊"}
 ];
 
+// Sessions: type = "hygiene" | "alim" | "mini"
 var DEF_SESSIONS = [
-  {id:"jan", name:"Janvier",  label:"Session 1 \u2014 Gros stock",    budgetMin:155, budgetMax:170, type:"hygiene"},
-  {id:"jul", name:"Juillet",  label:"Session 2 \u2014 Recharge",      budgetMin:130, budgetMax:150, type:"hygiene"},
-  {id:"apr", name:"Avril",    label:"Mini-recharge 1",                budgetMin:30,  budgetMax:40,  type:"hygiene"},
-  {id:"oct", name:"Octobre",  label:"Mini-recharge 2",                budgetMin:30,  budgetMax:40,  type:"hygiene"},
-  {id:"semaine", name:"Semaine", label:"Drive Vendredi + Samedi",     budgetMin:45,  budgetMax:55,  type:"alim"},
-  {id:"mois",    name:"Mois",    label:"Stocks mensuels",             budgetMin:30,  budgetMax:50,  type:"alim"},
-  {id:"trimestre",name:"Trimestre", label:"\u00c9conomat + Compl\u00e9ments", budgetMin:80, budgetMax:130, type:"alim"}
+  {id:"jan", name:"Janvier",    label:"Session 1 — Gros stock",  month:0,  day:1,  budgetMin:155, budgetMax:170, type:"hygiene"},
+  {id:"apr", name:"Avril",      label:"Mini-recharge",           month:3,  day:1,  budgetMin:30,  budgetMax:40,  type:"mini"},
+  {id:"jul", name:"Juillet",    label:"Session 2 — Recharge",    month:6,  day:1,  budgetMin:130, budgetMax:150, type:"hygiene"},
+  {id:"oct", name:"Octobre",    label:"Mini-recharge",           month:9,  day:1,  budgetMin:30,  budgetMax:40,  type:"mini"},
+  {id:"semaine", name:"Semaine",label:"Drive Vendredi + Samedi", month:-1, day:-1, budgetMin:45,  budgetMax:55,  type:"alim"},
+  {id:"mois",    name:"Mois",   label:"Stocks mensuels",         month:-1, day:-1, budgetMin:30,  budgetMax:50,  type:"alim"},
+  {id:"trimestre",name:"Trimestre",label:"\u00c9conomat + Compl\u00e9ments",month:-1,day:-1,budgetMin:80,budgetMax:130,type:"alim"}
 ];
 
-// stockActuel = quantite deja disponible
 var DEF_PRODS = [
   // HYGIENE
-  {id:"p01",cat:"hygiene",name:"Gel douche Cottage 560ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl ~3\u20ac \u00b7 U promo",duration:"~2 mois",stockActuel:0},
-  {id:"p02",cat:"hygiene",name:"D\u00e9odorant Sanex Sensitive 200ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl Cien ~1,80\u20ac \u00b7 Action",duration:"~5-6 sem",stockActuel:0},
-  {id:"p03",cat:"hygiene",name:"Rexona Max Protection 45ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.50,where:"Carrefour promo \u00b7 Amazon",duration:"~2 mois",stockActuel:0},
-  {id:"p04",cat:"hygiene",name:"Cr\u00e8me Mixa C\u00e9ramides 400ml",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"U promo ~4\u20ac \u00b7 Carrefour",duration:"~4 mois",stockActuel:0},
-  {id:"p05",cat:"hygiene",name:"Cr\u00e8me lavante mains 300ml",qtyJan:5,qtyJul:5,qtyApr:2,qtyOct:2,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action ~1,50\u20ac \u00b7 U marque dist.",duration:"~1 mois",stockActuel:0},
-  {id:"p06",cat:"hygiene",name:"Shampooing Herbal Essences 250ml",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"U promo \u00b7 Carrefour",duration:"~4 mois",stockActuel:0},
-  {id:"p07",cat:"hygiene",name:"Apr\u00e8s-shampooing Herbal Essences",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"U promo",duration:"~5 mois",stockActuel:0},
-  {id:"p08",cat:"hygiene",name:"Masque coco Herbal Essences 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:6.00,where:"U promo \u00b7 Amazon",duration:"~8 mois",stockActuel:0},
-  {id:"p09",cat:"hygiene",name:"Dentifrice U BIO 75ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~5-6 sem",stockActuel:0},
-  {id:"p10",cat:"hygiene",name:"Fil dentaire U",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~3 mois",stockActuel:0},
-  {id:"p11",cat:"hygiene",name:"Papier toilette U 18 rouleaux",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.50,where:"Action XXL \u00b7 Lidl pack",duration:"~3 mois",stockActuel:0},
-  {id:"p12",cat:"hygiene",name:"Lubrifiant Lubido 250ml",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:7.00,where:"Amazon discret ou U",duration:"~3 mois",stockActuel:0},
+  {id:"p01",cat:"hygiene",name:"Gel douche Cottage 560ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl ~3\u20ac",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p02",cat:"hygiene",name:"D\u00e9odorant Sanex Sensitive 200ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl ~1,80\u20ac",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
+  {id:"p03",cat:"hygiene",name:"Rexona Max Protection 45ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.50,where:"Carrefour promo",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p04",cat:"hygiene",name:"Cr\u00e8me Mixa C\u00e9ramides 400ml",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"U promo ~4\u20ac",duration:"~4 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p05",cat:"hygiene",name:"Cr\u00e8me lavante mains 300ml",qtyJan:5,qtyJul:5,qtyApr:2,qtyOct:2,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action ~1,50\u20ac",duration:"~1 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p06",cat:"hygiene",name:"Shampooing Herbal Essences 250ml",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"U promo",duration:"~4 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p07",cat:"hygiene",name:"Apr\u00e8s-shampooing Herbal Essences",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"U promo",duration:"~5 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p08",cat:"hygiene",name:"Masque coco Herbal Essences 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:6.00,where:"U promo",duration:"~8 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p09",cat:"hygiene",name:"Dentifrice U BIO 75ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
+  {id:"p10",cat:"hygiene",name:"Fil dentaire U",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~3 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p11",cat:"hygiene",name:"Papier toilette Action 24 rouleaux",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:6.50,where:"Action",duration:"~3 mois",stockVal:0,unit:"pack"},
+  {id:"p12",cat:"hygiene",name:"Gel lubrifiant 250ml Gyn\u00e9as",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:7.50,where:"Pharmacie ou Amazon",duration:"~3 mois",stockVal:0,unit:"unit\u00e9"},
   // PARFUMS
-  {id:"p13",cat:"parfums",name:"HDI N\u00b0326 Scandal",qtyJan:2,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:29.95,where:"Site officiel HDI direct",duration:"~6-12 mois",stockActuel:0},
-  {id:"p14",cat:"parfums",name:"HDI N\u00b0332 Baccarat Rouge 540",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:34.95,where:"Site officiel HDI direct",duration:"~6-12 mois",stockActuel:0},
-  {id:"p15",cat:"parfums",name:"Diffuseur Voyage Oriental",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:14.95,where:"Site officiel HDI direct",duration:"~3-4 mois",stockActuel:0},
+  {id:"p13",cat:"parfums",name:"HDI N\u00b0326 Scandal",qtyJan:2,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:29.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
+  {id:"p14",cat:"parfums",name:"HDI N\u00b0332 Baccarat Rouge 540",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:34.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
+  {id:"p15",cat:"parfums",name:"Diffuseur Voyage Oriental",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:14.95,where:"HDI direct",duration:"~3-4 mois",stockVal:0,unit:"unit\u00e9"},
   // ENTRETIEN
-  {id:"p16",cat:"entretien",name:"Lessive Briochin 2,27L",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:9.50,where:"Amazon lot \u00d73 -15%",duration:"~4 mois",stockActuel:0},
-  {id:"p17",cat:"entretien",name:"D\u00e9tachant Vanish Oxy 750ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"Action \u00b7 Lidl W5",duration:"~1 an",stockActuel:0},
-  {id:"p18",cat:"entretien",name:"Liquide vaisselle U 500ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.40,where:"Action ~0,90\u20ac \u00b7 Lidl",duration:"~2 mois",stockActuel:0},
-  {id:"p19",cat:"entretien",name:"Sanytol multi-surfaces 1L",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.00,where:"Action spray",duration:"~6 mois",stockActuel:0},
-  {id:"p20",cat:"entretien",name:"Sanytol SdB spray 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl W5 SdB \u00b7 Action",duration:"~6 mois",stockActuel:0},
-  {id:"p21",cat:"entretien",name:"Harpic PowerPlus WC 750ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl WC gel \u00b7 Action",duration:"~6 mois",stockActuel:0},
-  {id:"p22",cat:"entretien",name:"Destop d\u00e9boucheur 950ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.20,where:"Lidl \u00b7 Action",duration:"~1 an",stockActuel:0},
-  {id:"p23",cat:"entretien",name:"Dr. Beckmann nettoyant lave-linge",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Amazon lot \u00d74 -20%",duration:"~5-6 sem",stockActuel:0},
-  {id:"p24",cat:"entretien",name:"Film \u00e9tirable 50m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action \u00b7 Lidl",duration:"~4 mois",stockActuel:0},
-  {id:"p25",cat:"entretien",name:"Papier cuisson 30 feuilles",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action \u00b7 U Prix Mini",duration:"~3 mois",stockActuel:0},
-  {id:"p26",cat:"entretien",name:"Papier aluminium 30m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.50,where:"Action \u00b7 U Prix Mini",duration:"~4 mois",stockActuel:0},
-  {id:"p27",cat:"entretien",name:"Serviettes papier 200 feuilles",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"U Prix Mini",duration:"~4 mois",stockActuel:0},
-  {id:"p28",cat:"entretien",name:"Sacs poubelle 50L \u00d7 15",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.80,where:"U recycl\u00e9 \u00b7 Lidl",duration:"~17 sem",stockActuel:0},
-  {id:"p29",cat:"entretien",name:"Sacs poubelle 30L \u00d7 20",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"U recycl\u00e9 \u00b7 Action",duration:"~8-9 sem",stockActuel:0},
-  {id:"p30",cat:"entretien",name:"\u00c9ponges spirales inox 4 pi\u00e8ces",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.50,where:"Action",duration:"~8 sem",stockActuel:0},
-  {id:"p31",cat:"entretien",name:"Gants nitrile 100 pi\u00e8ces",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.50,where:"Action ou Amazon lot",duration:"~4 mois",stockActuel:0},
-  {id:"p32",cat:"entretien",name:"Gants de m\u00e9nage (cuisine + SdB)",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.49,where:"Action",duration:"~2 mois",stockActuel:0},
-  // FRAIS SEMAINE
-  {id:"f01",cat:"frais",name:"L\u00e9gumes vari\u00e9s (dont brocoli)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"2,4 kg/sem",stockActuel:0},
-  {id:"f02",cat:"frais",name:"Oeufs",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:3.50,where:"Drive Hyper U",duration:"21 oeufs/sem",stockActuel:0},
-  {id:"f03",cat:"frais",name:"Yaourts nature",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"14-21/sem",stockActuel:0},
-  {id:"f04",cat:"frais",name:"Fromage p\u00e2te dure (Emmental / Comt\u00e9)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"300 g/sem",stockActuel:0},
-  {id:"f05",cat:"frais",name:"Tortillas bl\u00e9",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:1.50,where:"Drive Hyper U",duration:"6/sem",stockActuel:0},
-  {id:"f06",cat:"frais",name:"F\u00e9culents crus (riz / p\u00e2tes / quinoa)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"~700 g crus/sem",stockActuel:0},
-  // PROTEINES SEMAINE
-  {id:"f07",cat:"proteines",name:"Poulet (filet)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:6.00,where:"Drive Hyper U ou boucherie",duration:"800 g/sem",stockActuel:0},
-  {id:"f08",cat:"proteines",name:"Poisson blanc (merlu)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:4.00,where:"Drive Hyper U",duration:"300 g/sem",stockActuel:0},
-  {id:"f09",cat:"proteines",name:"Viande rouge maigre",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:5.50,where:"Drive Hyper U ou boucherie",duration:"350 g/sem",stockActuel:0},
-  {id:"f10",cat:"proteines",name:"Boudin noir",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"150 g/sem",stockActuel:0},
-  {id:"f11",cat:"proteines",name:"Saumon (pav\u00e9s 125g)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:5.00,where:"Drive Hyper U (surgel\u00e9s) ou frais",duration:"500 g/sem",stockActuel:0},
-  {id:"f12",cat:"proteines",name:"Sardines",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U \u00b7 frais ou bocal",duration:"300 g/sem",stockActuel:0},
-  // CONGELATEUR (stocks mensuels)
-  {id:"c01",cat:"congelateur",name:"Pav\u00e9s saumon 125g \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:8.00,where:"Drive Hyper U",duration:"3-4 mois congel.",stockActuel:0},
-  {id:"c02",cat:"congelateur",name:"Boudin noir portions \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"2-3 mois congel.",stockActuel:0},
-  {id:"c03",cat:"congelateur",name:"Viande rouge maigre 150g \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:9.00,where:"Drive Hyper U",duration:"3-4 mois congel.",stockActuel:0},
-  {id:"c04",cat:"congelateur",name:"Viande collag\u00e8ne \u00e0 mijoter 4\u00d7150g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:7.00,where:"Drive Hyper U ou boucherie",duration:"3-4 mois congel.",stockActuel:0},
-  {id:"c05",cat:"congelateur",name:"Lard frais (portionn\u00e9) 200g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"1-2 mois congel.",stockActuel:0},
-  {id:"c06",cat:"congelateur",name:"\u00c9pinards surgel\u00e9s 720g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"12 mois congel.",stockActuel:0},
-  {id:"c07",cat:"congelateur",name:"Merlu surgel\u00e9 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"6 mois congel.",stockActuel:0},
-  {id:"c08",cat:"congelateur",name:"Aubergine cuite en d\u00e9s 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockActuel:0},
-  {id:"c09",cat:"congelateur",name:"Pur\u00e9e de brocoli 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockActuel:0},
-  // SAUCES & BOCAUX (sans pickles moutarde)
-  {id:"s01",cat:"sauces",name:"Sardines sauce tomate (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2014 batch 250g",duration:"3-4 j frigo",stockActuel:0},
-  {id:"s02",cat:"sauces",name:"Pesto (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Maison \u2014 batch 300g",duration:"1-2 sem frigo",stockActuel:0},
-  {id:"s03",cat:"sauces",name:"Sauce poivron basilic (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2014 batch 300g",duration:"4-5 j frigo",stockActuel:0},
-  {id:"s04",cat:"sauces",name:"Sauce curry (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison \u2014 batch 250g",duration:"4-5 j frigo",stockActuel:0},
-  {id:"s05",cat:"sauces",name:"Sauce poisson beurre citron (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison \u2014 batch 250g",duration:"3-4 j frigo",stockActuel:0},
-  {id:"s06",cat:"sauces",name:"Oignons caramel\u00e9lis\u00e9s (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.80,where:"Maison \u2014 batch 100g",duration:"1-2 sem frigo",stockActuel:0},
-  {id:"s07",cat:"sauces",name:"Pickles oignon rouge (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison \u2014 bocal st\u00e9rilis\u00e9 50g",duration:"3 sem frigo",stockActuel:0},
-  {id:"s08",cat:"sauces",name:"Chimichurri (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison \u2014 batch 50g",duration:"1-2 sem frigo",stockActuel:0},
-  {id:"s09",cat:"sauces",name:"Tomates s\u00e9ch\u00e9es / huile",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.50,where:"Drive Hyper U \u2014 bocal 800g",duration:"3-4 sem ouvert",stockActuel:0},
-  {id:"s10",cat:"sauces",name:"Gingembre (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:2.50,where:"Drive Hyper U",duration:"6-12 mois frigo ouvert",stockActuel:0},
-  {id:"s11",cat:"sauces",name:"Ail (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:2.50,where:"Drive Hyper U",duration:"6-12 mois frigo ouvert",stockActuel:0},
-  {id:"s12",cat:"sauces",name:"Chorizo \u00b7 Coppa 80g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"3-4 sem frigo",stockActuel:0},
-  // ECONOMAT (trimestriel)
-  {id:"e01",cat:"economat",name:"Riz / P\u00e2tes / Quinoa",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:15.00,where:"Drive Hyper U \u2014 6-9 kg",duration:"24 mois hermétique",stockActuel:0},
-  {id:"e02",cat:"economat",name:"Huile d'olive extra vierge",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Drive Hyper U \u2014 3-4 L",duration:"18-24 mois",stockActuel:0},
-  {id:"e03",cat:"economat",name:"Son d'avoine (muesli) 4,1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Amazon ou Bulk",duration:"12 mois herm\u00e9tique",stockActuel:0},
-  {id:"e04",cat:"economat",name:"Poudre d'amande (muesli) 1,45 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Amazon ou Bulk",duration:"6-12 mois frigo ouvert",stockActuel:0},
-  {id:"e05",cat:"economat",name:"Noisettes (muesli) 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Lidl ou Bulk",duration:"6-12 mois herm\u00e9tique",stockActuel:0},
-  {id:"e06",cat:"economat",name:"Beurre de cacahu\u00e8tes (muesli) 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:7.00,where:"Action ou Lidl",duration:"6-12 mois frigo",stockActuel:0},
-  {id:"e07",cat:"economat",name:"Sirop sans sucre 720ml",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:4.00,where:"Drive Hyper U",duration:"12-24 mois",stockActuel:0},
-  // COMPLEMENTS (trimestriel)
-  {id:"k01",cat:"complements",name:"Cacao bio Greenweez 4 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:28.00,where:"Greenweez.com",duration:"~4 mois (40g/j)",stockActuel:0},
-  {id:"k02",cat:"complements",name:"Cr\u00e9atine monohydrate 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:18.00,where:"Bulk Powders ou MyProtein",duration:"~6 mois (5g/j)",stockActuel:0},
-  {id:"k03",cat:"complements",name:"Huile foie de morue 100ml \u00d72",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:22.00,where:"Greenweez.com",duration:"~7 sem/flacon \u2192 toujours 2 en stock",stockActuel:0},
-  {id:"k04",cat:"complements",name:"Collag\u00e8ne + Vit C 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:25.00,where:"Bulk Powders ou Amazon",duration:"~3 mois (10g/j)",stockActuel:0},
-  {id:"k05",cat:"complements",name:"Avoine en poudre 1,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Bulk Powders ou MyProtein",duration:"~5 mois (70g/sem muesli)",stockActuel:0}
+  {id:"p16",cat:"entretien",name:"Lessive Briochin 2,27L",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:9.50,where:"Amazon lot -15%",duration:"~4 mois",stockVal:0,unit:"bidon"},
+  {id:"p17",cat:"entretien",name:"D\u00e9tachant Vanish Oxy 750ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"Action \u00b7 Lidl W5",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
+  {id:"p18",cat:"entretien",name:"Liquide vaisselle U 500ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.40,where:"Action ~0,90\u20ac",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p19",cat:"entretien",name:"Sanytol multi-surfaces 1L",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.00,where:"Action spray",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p20",cat:"entretien",name:"Sanytol SdB spray 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl W5 SdB",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p21",cat:"entretien",name:"Harpic PowerPlus WC 750ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl WC gel",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p22",cat:"entretien",name:"Destop d\u00e9boucheur 950ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.20,where:"Lidl \u00b7 Action",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
+  {id:"p23",cat:"entretien",name:"Dr. Beckmann nettoyant lave-linge",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Amazon lot -20%",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
+  {id:"p24",cat:"entretien",name:"Film \u00e9tirable 50m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action",duration:"~4 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"p25",cat:"entretien",name:"Papier cuisson 30 feuilles",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"Action \u00b7 U Prix Mini",duration:"~3 mois",stockVal:0,unit:"rouleau"},
+  {id:"p26",cat:"entretien",name:"Papier aluminium 30m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.50,where:"Action \u00b7 U Prix Mini",duration:"~4 mois",stockVal:0,unit:"rouleau"},
+  {id:"p27",cat:"entretien",name:"Serviettes papier 200 feuilles",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"U Prix Mini",duration:"~4 mois",stockVal:0,unit:"paquet"},
+  {id:"p28",cat:"entretien",name:"Sacs poubelle 50L \u00d7 15",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.80,where:"U recycl\u00e9",duration:"~17 sem",stockVal:0,unit:"pack"},
+  {id:"p29",cat:"entretien",name:"Sacs poubelle 30L \u00d7 20",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"U recycl\u00e9",duration:"~8-9 sem",stockVal:0,unit:"pack"},
+  {id:"p30",cat:"entretien",name:"\u00c9ponges spirales inox 4 pi\u00e8ces",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.50,where:"Action",duration:"~8 sem",stockVal:0,unit:"pack"},
+  {id:"p31",cat:"entretien",name:"Gants nitrile 100 pi\u00e8ces",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.50,where:"Action ou Amazon",duration:"~4 mois",stockVal:0,unit:"bo\u00eete"},
+  {id:"p32",cat:"entretien",name:"Gants de m\u00e9nage (cuisine + SdB)",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.49,where:"Action",duration:"~2 mois",stockVal:0,unit:"paire"},
+  // FRAIS SEMAINE (portions)
+  {id:"f01",cat:"frais",name:"L\u00e9gumes vari\u00e9s (dont brocoli)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:5,qtyMois:0,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"5 portions/sem",stockVal:0,unit:"portion",portionsTotal:5},
+  {id:"f02",cat:"frais",name:"Oeufs",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:7,qtyMois:0,qtyTri:0,price:3.50,where:"Drive Hyper U",duration:"21 oeufs/sem (3/j)",stockVal:0,unit:"portion (3 oeufs)",portionsTotal:7},
+  {id:"f03",cat:"frais",name:"Yaourts nature",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:7,qtyMois:0,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"14-21/sem",stockVal:0,unit:"portion (2-3)",portionsTotal:7},
+  {id:"f04",cat:"frais",name:"Fromage p\u00e2te dure",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"50g/jour",stockVal:0,unit:"portion (50g)",portionsTotal:6},
+  {id:"f05",cat:"frais",name:"Tortillas bl\u00e9",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:1.50,where:"Drive Hyper U",duration:"6/sem",stockVal:0,unit:"tortilla",portionsTotal:6},
+  {id:"f06",cat:"frais",name:"F\u00e9culents crus (riz/p\u00e2tes/quinoa)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"~700g crus/sem",stockVal:0,unit:"portion (115g cru)",portionsTotal:6},
+  // PROTEINES SEMAINE (portions)
+  {id:"f07",cat:"proteines",name:"Poulet (filet)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:4,qtyMois:0,qtyTri:0,price:6.00,where:"Drive Hyper U",duration:"800g/sem, 4 repas",stockVal:0,unit:"repas (200g)",portionsTotal:4},
+  {id:"f08",cat:"proteines",name:"Poisson blanc (merlu)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:4.00,where:"Drive Hyper U",duration:"300g/sem, 2 repas",stockVal:0,unit:"repas (150g)",portionsTotal:2},
+  {id:"f09",cat:"proteines",name:"Viande rouge maigre",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:5.50,where:"Drive Hyper U",duration:"350g/sem, 2 repas",stockVal:0,unit:"repas (175g)",portionsTotal:2},
+  {id:"f10",cat:"proteines",name:"Boudin noir",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"150g/sem, 1 repas",stockVal:0,unit:"repas (150g)",portionsTotal:1},
+  {id:"f11",cat:"proteines",name:"Saumon (pav\u00e9s 125g)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:3,qtyMois:0,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"500g/sem, 3-4 repas",stockVal:0,unit:"pav\u00e9 (125g)",portionsTotal:3},
+  {id:"f12",cat:"proteines",name:"Sardines",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"300g/sem, 2 repas",stockVal:0,unit:"repas (150g)",portionsTotal:2},
+  // CONGELATEUR
+  {id:"c01",cat:"congelateur",name:"Pav\u00e9s saumon 125g \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:8.00,where:"Drive Hyper U",duration:"3-4 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c02",cat:"congelateur",name:"Boudin noir portions \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"2-3 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c03",cat:"congelateur",name:"Viande rouge maigre 150g \u00d74",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:9.00,where:"Drive Hyper U",duration:"3-4 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c04",cat:"congelateur",name:"Viande collag\u00e8ne \u00e0 mijoter 4\u00d7150g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:7.00,where:"Drive Hyper U",duration:"3-4 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c05",cat:"congelateur",name:"Lard frais (portionn\u00e9) 200g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"1-2 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c06",cat:"congelateur",name:"\u00c9pinards surgel\u00e9s 720g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"12 mois congel.",stockVal:0,unit:"paquet"},
+  {id:"c07",cat:"congelateur",name:"Merlu surgel\u00e9 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"6 mois congel.",stockVal:0,unit:"sac"},
+  {id:"c08",cat:"congelateur",name:"Aubergine cuite en d\u00e9s 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete"},
+  {id:"c09",cat:"congelateur",name:"Pur\u00e9e de brocoli 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete"},
+  // SAUCES
+  {id:"s01",cat:"sauces",name:"Sardines sauce tomate (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison",duration:"3-4 j frigo",stockVal:0,unit:"bocal"},
+  {id:"s02",cat:"sauces",name:"Pesto (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Maison",duration:"1-2 sem frigo",stockVal:0,unit:"bocal"},
+  {id:"s03",cat:"sauces",name:"Sauce poivron basilic (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison",duration:"4-5 j frigo",stockVal:0,unit:"bocal"},
+  {id:"s04",cat:"sauces",name:"Sauce curry (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison",duration:"4-5 j frigo",stockVal:0,unit:"bocal"},
+  {id:"s05",cat:"sauces",name:"Pickles oignon rouge (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison",duration:"3 sem frigo",stockVal:0,unit:"bocal"},
+  {id:"s06",cat:"sauces",name:"Chimichurri (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison",duration:"1-2 sem frigo",stockVal:0,unit:"bocal"},
+  {id:"s07",cat:"sauces",name:"Tomates s\u00e9ch\u00e9es / huile",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.50,where:"Drive Hyper U",duration:"3-4 sem ouvert",stockVal:0,unit:"bocal"},
+  {id:"s08",cat:"sauces",name:"Gingembre (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:2.50,where:"Drive Hyper U",duration:"6-12 mois frigo",stockVal:0,unit:"bocal"},
+  {id:"s09",cat:"sauces",name:"Ail (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:2.50,where:"Drive Hyper U",duration:"6-12 mois frigo",stockVal:0,unit:"bocal"},
+  // ECONOMAT
+  {id:"e01",cat:"economat",name:"Riz / P\u00e2tes / Quinoa",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:15.00,where:"Drive Hyper U",duration:"24 mois",stockVal:0,unit:"sac (3kg)"},
+  {id:"e02",cat:"economat",name:"Huile d\u2019olive extra vierge",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Drive Hyper U",duration:"18-24 mois",stockVal:0,unit:"bouteille"},
+  {id:"e03",cat:"economat",name:"Son d\u2019avoine (muesli) 4,1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Amazon ou Bulk",duration:"12 mois",stockVal:0,unit:"sac"},
+  {id:"e04",cat:"economat",name:"Poudre d\u2019amande (muesli) 1,45 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Amazon ou Bulk",duration:"6-12 mois",stockVal:0,unit:"sac"},
+  {id:"e05",cat:"economat",name:"Noisettes (muesli) 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Lidl ou Bulk",duration:"6-12 mois",stockVal:0,unit:"sac"},
+  {id:"e06",cat:"economat",name:"Beurre de cacahu\u00e8tes 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:7.00,where:"Action ou Lidl",duration:"6-12 mois",stockVal:0,unit:"pot"},
+  {id:"e07",cat:"economat",name:"Sirop sans sucre 720ml",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:4.00,where:"Drive Hyper U",duration:"12-24 mois",stockVal:0,unit:"bouteille"},
+  // COMPLEMENTS
+  {id:"k01",cat:"complements",name:"Cacao bio Greenweez 4 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:28.00,where:"Greenweez.com",duration:"~4 mois (40g/j)",stockVal:0,unit:"sac (1kg)"},
+  {id:"k02",cat:"complements",name:"Cr\u00e9atine monohydrate 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:18.00,where:"Bulk ou MyProtein",duration:"~6 mois (5g/j)",stockVal:0.7,unit:"sac (1kg)"},
+  {id:"k03",cat:"complements",name:"Huile foie de morue 100ml \u00d72",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:22.00,where:"Greenweez.com",duration:"~7 sem/flacon",stockVal:0,unit:"flacon"},
+  {id:"k04",cat:"complements",name:"Collag\u00e8ne + Vit C 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:25.00,where:"Bulk ou Amazon",duration:"~3 mois (10g/j)",stockVal:0,unit:"sac"},
+  {id:"k05",cat:"complements",name:"Avoine en poudre 1,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Bulk ou MyProtein",duration:"~5 mois (70g/sem)",stockVal:0,unit:"sac"}
 ];
 
+var FRACS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5];
+var FRAC_LABELS = ["0", "\u00bc", "\u00bd", "\u00be", "1", "1\u00bd", "2", "3", "4", "5"];
 var CAT_COLORS = ["#3ddc84","#D4FF3C","#ffbb33","#5b9fff","#ff5252","#cc79f7","#ff8c42","#00d4aa","#c8a96e"];
 
-// ===== STATE =====
+// ── STATE ──────────────────────────────────────────────────
 var cats = [];
 var prods = [];
 var sessions = [];
 var checked = {};
-var activeSess = "jan";
+var portions = {};  // {sessId_prodId: count}
+var activeSess = "jul";   // default to next session
 var activeCatFilter = "all";
 var openCats = {};
 var editProdId = null;
 var cfCb = null;
-var stockEditId = null;
+var darkMode = true;
+var currentCalMonth = new Date().getMonth();
+var currentCalYear = new Date().getFullYear();
 
-// ===== STORAGE =====
+// ── STORAGE ───────────────────────────────────────────────
 function saveAll(){
   try{
-    localStorage.setItem("th3_cats",JSON.stringify(cats));
-    localStorage.setItem("th3_prods",JSON.stringify(prods));
-    localStorage.setItem("th3_checked",JSON.stringify(checked));
-    localStorage.setItem("th3_sessions",JSON.stringify(sessions));
+    localStorage.setItem("th4_cats", JSON.stringify(cats));
+    localStorage.setItem("th4_prods", JSON.stringify(prods));
+    localStorage.setItem("th4_checked", JSON.stringify(checked));
+    localStorage.setItem("th4_portions", JSON.stringify(portions));
+    localStorage.setItem("th4_sessions", JSON.stringify(sessions));
+    localStorage.setItem("th4_theme", darkMode?"dark":"light");
+    localStorage.setItem("th4_sess", activeSess);
   }catch(e){}
 }
 function loadAll(){
-  var c=localStorage.getItem("th3_cats"); cats=c?JSON.parse(c):JSON.parse(JSON.stringify(DEF_CATS));
-  var p=localStorage.getItem("th3_prods"); prods=p?JSON.parse(p):JSON.parse(JSON.stringify(DEF_PRODS));
-  var ch=localStorage.getItem("th3_checked"); checked=ch?JSON.parse(ch):{};
-  var s=localStorage.getItem("th3_sessions"); sessions=s?JSON.parse(s):JSON.parse(JSON.stringify(DEF_SESSIONS));
-  // migrate old keys
-  if(!p){
-    var old=["th2_prods","th_prods"];
-    for(var i=0;i<old.length;i++){ var v=localStorage.getItem(old[i]); if(v){ prods=JSON.parse(v); break; } }
-  }
+  var old = ["th3_prods","th2_prods","th_prods"];
+  var c=localStorage.getItem("th4_cats"); cats=c?JSON.parse(c):JSON.parse(JSON.stringify(DEF_CATS));
+  var p=localStorage.getItem("th4_prods");
+  if(!p){ for(var i=0;i<old.length;i++){var v=localStorage.getItem(old[i]);if(v){p=v;break;}} }
+  prods=p?JSON.parse(p):JSON.parse(JSON.stringify(DEF_PRODS));
+  var ch=localStorage.getItem("th4_checked"); checked=ch?JSON.parse(ch):{};
+  var po=localStorage.getItem("th4_portions"); portions=po?JSON.parse(po):{};
+  var s=localStorage.getItem("th4_sessions"); sessions=s?JSON.parse(s):JSON.parse(JSON.stringify(DEF_SESSIONS));
+  var th=localStorage.getItem("th4_theme"); if(th) darkMode=(th==="dark");
+  var as=localStorage.getItem("th4_sess"); if(as) activeSess=as;
+  applyTheme();
 }
 
-// ===== UTILS =====
+// ── UTILS ─────────────────────────────────────────────────
 function uid(){ return "t"+Date.now()+Math.random().toString(36).slice(2,5); }
 function gid(id){ return document.getElementById(id); }
 function setH(id,h){ var e=gid(id); if(e) e.innerHTML=h; }
@@ -474,13 +570,29 @@ function toast(msg){
   var t=gid("toast"); t.textContent=msg; t.classList.add("show");
   clearTimeout(t._t); t._t=setTimeout(function(){ t.classList.remove("show"); },2500);
 }
-function eur(n){ return Math.round(n)+"\u20ac"; }
+function eur(n){ return (Math.round(n*10)/10)+"\u20ac"; }
 function findCat(id){ for(var i=0;i<cats.length;i++) if(cats[i].id===id) return cats[i]; return null; }
 function findSess(id){ for(var i=0;i<sessions.length;i++) if(sessions[i].id===id) return sessions[i]; return null; }
 function findProd(id){ for(var i=0;i<prods.length;i++) if(prods[i].id===id) return prods[i]; return null; }
 function chkKey(sid,pid){ return sid+"_"+pid; }
 function isChecked(sid,pid){ return !!checked[chkKey(sid,pid)]; }
-
+function getPortions(sid,pid){ return portions[chkKey(sid,pid)]||0; }
+function fracLabel(v){
+  for(var i=0;i<FRACS.length;i++) if(Math.abs(FRACS[i]-v)<0.01) return FRAC_LABELS[i];
+  return v.toString();
+}
+function fracNext(v){
+  for(var i=0;i<FRACS.length-1;i++) if(Math.abs(FRACS[i]-v)<0.01) return FRACS[i+1];
+  return FRACS[FRACS.length-1];
+}
+function fracPrev(v){
+  for(var i=FRACS.length-1;i>0;i--) if(Math.abs(FRACS[i]-v)<0.01) return FRACS[i-1];
+  return 0;
+}
+function needToBuy(p, sid){
+  var qty=getQtyForSess(p,sid); var stock=p.stockVal||0;
+  var need=qty-stock; return need>0?Math.ceil(need):0;
+}
 function getQtyForSess(p, sid){
   if(sid==="jan") return p.qtyJan||0;
   if(sid==="jul") return p.qtyJul||0;
@@ -494,13 +606,18 @@ function getQtyForSess(p, sid){
 function getProdsForSess(sid){
   return prods.filter(function(p){ return getQtyForSess(p,sid)>0; });
 }
-function getNeedToBuy(p, sid){
-  var qty=getQtyForSess(p,sid);
-  var stock=p.stockActuel||0;
-  return Math.max(0, qty-stock);
-}
+function isAlimSess(sid){ var s=findSess(sid); return s&&s.type==="alim"; }
+function isPortion(p){ return !!(p.portionsTotal); }
 
-// ===== NAVIGATION =====
+// ── THEME ─────────────────────────────────────────────────
+function applyTheme(){
+  document.body.className = darkMode?"dark":"light";
+  var btn=gid("themeBtn");
+  if(btn) btn.textContent = darkMode?"☀️":"🌙";
+}
+function toggleTheme(){ darkMode=!darkMode; applyTheme(); saveAll(); }
+
+// ── NAVIGATION ────────────────────────────────────────────
 function go(name){
   document.querySelectorAll(".pg").forEach(function(p){ p.classList.remove("on"); });
   document.querySelectorAll(".nb").forEach(function(b){ b.classList.remove("on"); });
@@ -509,10 +626,30 @@ function go(name){
   if(name==="check") rCheck();
   else if(name==="stocks") rStocks();
   else if(name==="prods") rProds();
+  else if(name==="agenda") rAgenda();
   else if(name==="bilan") rBilan();
 }
 
-// ===== CHECK PAGE =====
+// Auto-detect current session based on today's date
+function detectSession(){
+  var now = new Date();
+  var m = now.getMonth(); // 0-11
+  var d = now.getDate();
+  // Jan-Mar: post-session 1 → next is Apr mini
+  if(m>=0&&m<3) return "apr";
+  // Apr: mini recharge
+  if(m===3) return "apr";
+  // May-Jun: post-apr → next is Jul
+  if(m>=4&&m<6) return "jul";
+  // Jul-Sep: session 2
+  if(m>=6&&m<9) return "jul";
+  // Oct: mini recharge
+  if(m===9) return "oct";
+  // Nov-Dec: post-oct → next is Jan
+  return "jan";
+}
+
+// ── CHECK PAGE ────────────────────────────────────────────
 function rCheck(){
   var th="";
   for(var i=0;i<sessions.length;i++){
@@ -522,51 +659,57 @@ function rCheck(){
   setH("sessTabs",th);
   var sess=findSess(activeSess);
   var sp=getProdsForSess(activeSess);
-  var done=0; for(var i=0;i<sp.length;i++) if(isChecked(activeSess,sp[i].id)) done++;
+
+  // Progress calculation
+  var done=0;
+  for(var i=0;i<sp.length;i++){
+    if(isAlimSess(activeSess)&&isPortion(sp[i])){
+      var pt=sp[i].portionsTotal||1; var pg=getPortions(activeSess,sp[i].id);
+      if(pg>=pt) done++;
+    } else {
+      if(isChecked(activeSess,sp[i].id)) done++;
+    }
+  }
   var tot=sp.length; var pct=tot>0?Math.round(done/tot*100):0;
-  setH("checkSub",sess?sess.label:"");
+
+  var sessLabel = sess?sess.label:"";
+  if(sess&&(sess.id==="jan"||sess.id==="jul")){
+    // Show countdown to next occurrence
+    var now=new Date(); var nextDate=new Date(now.getFullYear(),sess.month,sess.day);
+    if(nextDate<now) nextDate.setFullYear(now.getFullYear()+1);
+    var days=Math.ceil((nextDate-now)/86400000);
+    if(days<=30) sessLabel+=" \u2022 dans "+days+" jours";
+  }
+  setH("checkSub",sessLabel);
   setH("progLabel",done+"/"+tot+" articles");
   setH("progPct",pct+"%");
   gid("progFill").style.width=pct+"%";
+  gid("progFill").style.background=pct===100?"var(--grn)":"var(--a)";
 
+  // Reset btn
+  setH("resetBtnWrap","<div class='reset-btn' onclick='resetChecklist()'>&#8635; Remettre \u00e0 z\u00e9ro la session</div>");
+
+  // Build category groups
   var listEl=gid("catList"); listEl.innerHTML="";
   for(var ci=0;ci<cats.length;ci++){
     var cat=cats[ci];
     var grp=sp.filter(function(p){ return p.cat===cat.id; });
     if(!grp.length) continue;
-    var catDone=0; for(var i=0;i<grp.length;i++) if(isChecked(activeSess,grp[i].id)) catDone++;
+    var catDone=0;
+    for(var i=0;i<grp.length;i++){
+      if(isAlimSess(activeSess)&&isPortion(grp[i])){ if(getPortions(activeSess,grp[i].id)>=(grp[i].portionsTotal||1)) catDone++; }
+      else if(isChecked(activeSess,grp[i].id)) catDone++;
+    }
     var sec=document.createElement("div");
     sec.className="cat-sec"+(openCats[cat.id]?" open":""); sec.id="cs_"+cat.id;
     var rows="";
     for(var i=0;i<grp.length;i++){
-      var p=grp[i]; var chk=isChecked(activeSess,p.id);
-      var qty=getQtyForSess(p,activeSess);
-      var stock=p.stockActuel||0;
-      var need=Math.max(0,qty-stock);
-      var hasStock=stock>0&&stock>=qty;
-      rows+="<div class='prod-row"+(chk?" ck":"")+(hasStock?" stocked":"")+"'>"+
-        "<div class='chkbox"+(chk?" on":"")+"' onclick=\"tglCheck('"+activeSess+"','"+p.id+"')\">"+
-        "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round'><polyline points='20 6 9 17 4 12'/></svg></div>"+
-        "<div class='prod-info'>"+
-        "<div class='prod-nm'>"+p.name+"</div>"+
-        "<div class='prod-dt'>"+(p.duration?p.duration+" \u00b7 ":"")+p.where+"</div>"+
-        (stock>0?"<div class='stock-badge'>En stock : "+stock+" unit\u00e9"+(stock>1?"s":"")+(need>0?" \u2192 acheter: "+need:"" + " \u2713 complet")+"</div>":"")+
-        "</div>"+
-        "<div class='qty-col'>"+
-        "<div class='qty-badge'>\u00d7"+qty+"</div>"+
-        "<button class='stk-btn' onclick=\"openStockEdit('"+p.id+"')\" title='Mettre \u00e0 jour le stock'>"+
-        (stock>0?"<span class='stk-num'>"+stock+"</span>":"")+"&#9993;"+
-        "</button>"+
-        "</div>"+
-        "<button class='edit-btn' onclick=\"openEditProd('"+p.id+"')\">"+
-        "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/></svg>"+
-        "</button></div>";
+      rows+=buildCheckRow(grp[i], activeSess);
     }
-    var icon=cat.icon||"";
     sec.innerHTML=
       "<div class='cat-hd' onclick=\"tglCat('"+cat.id+"')\">"+
       "<div class='cat-hd-l'><div class='cat-dot' style='background:"+cat.color+"'></div>"+
-      "<span class='cat-icon'>"+icon+"</span>"+
+      "<span class='cat-icon'>"+cat.icon+"</span>"+
       "<span class='cat-title'>"+cat.name+"</span></div>"+
       "<div class='cat-hd-r'><span class='cat-cnt'>"+catDone+"/"+grp.length+"</span>"+
       "<svg class='chev' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>"+
@@ -575,7 +718,58 @@ function rCheck(){
     listEl.appendChild(sec);
   }
 }
-function setSess(id){ activeSess=id; rCheck(); }
+
+function buildCheckRow(p, sid){
+  var chk=isChecked(sid,p.id);
+  var qty=getQtyForSess(p,sid);
+  var stock=p.stockVal||0;
+  var need=needToBuy(p,sid);
+  var hasStock=stock>0;
+
+  var rowClass="prod-row"+(chk&&!isPortion(p)?" ck":"")+(hasStock?" has-stock":"");
+
+  // Portions mode for alim items
+  if(isAlimSess(sid)&&isPortion(p)){
+    var pg=getPortions(sid,p.id); var pt=p.portionsTotal||1; var ppct=Math.round(pg/pt*100);
+    return "<div class='"+rowClass+"' style='flex-direction:column;align-items:stretch;padding:11px 13px'>"+
+      "<div style='display:flex;align-items:center;gap:9px'>"+
+      "<div class='prod-info'><div class='prod-nm'>"+p.name+"</div>"+
+      "<div class='prod-dt'>"+p.duration+"</div></div>"+
+      "<div class='qty-badge'>"+pg+"/"+pt+"</div>"+
+      "<button class='edit-btn' onclick=\"openEditProd('"+p.id+"')\"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/></svg></button>"+
+      "</div>"+
+      "<div class='portion-bar-row'>"+
+      "<div class='portion-bar'><div class='portion-fill' style='width:"+ppct+"%;background:"+(ppct>=100?"var(--grn)":"var(--a)")+"'></div></div>"+
+      "<button class='port-sub' onclick=\"adjPortion('"+sid+"','"+p.id+"',-1)\">-</button>"+
+      "<span class='port-unit'>"+p.unit+"</span>"+
+      "<button class='port-add' onclick=\"adjPortion('"+sid+"','"+p.id+"',1)\">+</button>"+
+      "</div></div>";
+  }
+
+  // Need-to-buy indicator
+  var needHtml="";
+  if(hasStock){
+    var stockLabel=fracLabel(stock);
+    needHtml="<div class='need-badge'>";
+    if(stock>=qty) needHtml+="\u2705 "+stockLabel+" en stock \u2014 complet";
+    else needHtml+="\uD83D\uDCE6 "+stockLabel+" en stock \u2192 acheter "+need;
+    needHtml+="</div>";
+  }
+
+  return "<div class='"+rowClass+"'>"+
+    "<div class='chkbox"+(chk?" on":"")+"' onclick=\"tglCheck('"+sid+"','"+p.id+"')\">"+
+    "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round'><polyline points='20 6 9 17 4 12'/></svg></div>"+
+    "<div class='prod-info'><div class='prod-nm'>"+p.name+"</div>"+
+    "<div class='prod-dt'>"+p.duration+" \u00b7 "+p.where+"</div>"+
+    needHtml+"</div>"+
+    "<div class='qty-col'>"+
+    "<div class='qty-badge'>\u00d7"+qty+"</div>"+
+    "</div>"+
+    "<button class='edit-btn' onclick=\"openEditProd('"+p.id+"')\"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/></svg></button>"+
+    "</div>";
+}
+
+function setSess(id){ activeSess=id; saveAll(); rCheck(); }
 function tglCat(id){ openCats[id]=!openCats[id]; var el=gid("cs_"+id); if(el) el.classList.toggle("open"); }
 function tglCheck(sid,pid){
   var key=chkKey(sid,pid);
@@ -583,39 +777,51 @@ function tglCheck(sid,pid){
   saveAll(); rCheck();
   if(navigator.vibrate) navigator.vibrate([15]);
 }
+function adjPortion(sid,pid,delta){
+  var key=chkKey(sid,pid); var p=findProd(pid); if(!p) return;
+  var cur=portions[key]||0;
+  var max=p.portionsTotal||7;
+  portions[key]=Math.max(0,Math.min(max,cur+delta));
+  saveAll(); rCheck();
+  if(navigator.vibrate) navigator.vibrate([10]);
+}
+function resetChecklist(){
+  cfmDlg("Remettre \u00e0 z\u00e9ro ?","Les coches de la session "+activeSess+" seront effac\u00e9es.",function(){
+    var keys=Object.keys(checked);
+    for(var i=0;i<keys.length;i++) if(keys[i].indexOf(activeSess+"_")===0) delete checked[keys[i]];
+    var pkeys=Object.keys(portions);
+    for(var i=0;i<pkeys.length;i++) if(pkeys[i].indexOf(activeSess+"_")===0) delete portions[pkeys[i]];
+    saveAll(); rCheck(); toast("Session r\u00e9initialis\u00e9e");
+  },"Remettre \u00e0 z\u00e9ro","danger");
+}
 
-// ===== STOCK MANAGEMENT PAGE =====
+// ── STOCK PAGE ────────────────────────────────────────────
 function rStocks(){
   var listEl=gid("stockList"); listEl.innerHTML="";
   for(var ci=0;ci<cats.length;ci++){
     var cat=cats[ci];
     var grp=prods.filter(function(p){ return p.cat===cat.id; });
     if(!grp.length) continue;
-    var hasStock=grp.filter(function(p){ return (p.stockActuel||0)>0; }).length;
+    var withStock=grp.filter(function(p){ return (p.stockVal||0)>0; }).length;
     var sec=document.createElement("div");
     sec.className="cat-sec open"; sec.id="ss_"+cat.id;
     var rows="";
     for(var i=0;i<grp.length;i++){
-      var p=grp[i]; var stock=p.stockActuel||0;
-      var cls="stock-row"+(stock>0?" has-stock":"");
-      rows+="<div class='"+cls+"'>"+
-        "<div class='prod-info'>"+
-        "<div class='prod-nm'>"+p.name+"</div>"+
-        "<div class='prod-dt'>"+p.duration+"</div>"+
-        "</div>"+
-        "<div class='stock-ctrl'>"+
-        "<button class='stk-minus' onclick=\"adjStock('"+p.id+"',-1)\">&#8722;</button>"+
-        "<div class='stk-val"+(stock>0?" pos":"")+"'>"+stock+"</div>"+
-        "<button class='stk-plus' onclick=\"adjStock('"+p.id+"',1)\">+</button>"+
+      var p=grp[i]; var sv=p.stockVal||0;
+      rows+="<div class='stock-row"+(sv>0?" has-stock":"")+"'>"+
+        "<div class='prod-info'><div class='prod-nm'>"+p.name+"</div>"+
+        "<div class='prod-dt'>"+p.unit+" \u00b7 "+p.duration+"</div></div>"+
+        "<div class='frac-ctrl'>"+
+        "<button class='frac-btn' onclick=\"adjFrac('"+p.id+"',-1)\">&#9660;</button>"+
+        "<div class='frac-val"+(sv>0?" pos":"")+"'>"+fracLabel(sv)+"</div>"+
+        "<button class='frac-btn' onclick=\"adjFrac('"+p.id+"',1)\">&#9650;</button>"+
         "</div></div>";
     }
-    var icon=cat.icon||"";
     sec.innerHTML=
       "<div class='cat-hd' onclick=\"tglStockCat('"+cat.id+"')\">"+
       "<div class='cat-hd-l'><div class='cat-dot' style='background:"+cat.color+"'></div>"+
-      "<span class='cat-icon'>"+icon+"</span>"+
-      "<span class='cat-title'>"+cat.name+"</span></div>"+
-      "<div class='cat-hd-r'><span class='cat-cnt'>"+hasStock+"/"+grp.length+" en stock</span>"+
+      "<span class='cat-icon'>"+cat.icon+"</span><span class='cat-title'>"+cat.name+"</span></div>"+
+      "<div class='cat-hd-r'><span class='cat-cnt'>"+withStock+"/"+grp.length+" en stock</span>"+
       "<svg class='chev' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round'><polyline points='6 9 12 15 18 9'/></svg>"+
       "</div></div>"+
       "<div class='cat-items'>"+rows+"</div>";
@@ -623,33 +829,15 @@ function rStocks(){
   }
 }
 function tglStockCat(id){ var el=gid("ss_"+id); if(el) el.classList.toggle("open"); }
-function adjStock(pid, delta){
+function adjFrac(pid,dir){
   var p=findProd(pid); if(!p) return;
-  p.stockActuel=Math.max(0,(p.stockActuel||0)+delta);
+  var sv=p.stockVal||0;
+  p.stockVal=dir>0?fracNext(sv):fracPrev(sv);
   saveAll(); rStocks();
   if(navigator.vibrate) navigator.vibrate([10]);
 }
-function openStockEdit(pid){
-  var p=findProd(pid); if(!p) return;
-  stockEditId=pid;
-  gid("stockEditName").textContent=p.name;
-  gid("fStockQty").value=p.stockActuel||0;
-  gid("stockModal").classList.add("show");
-  setTimeout(function(){ gid("fStockQty").focus(); gid("fStockQty").select(); },120);
-}
-function closeStockModal(){ gid("stockModal").classList.remove("show"); stockEditId=null; }
-function saveStockEdit(){
-  if(!stockEditId) return;
-  var p=findProd(stockEditId); if(!p) return;
-  p.stockActuel=Math.max(0,parseInt(gid("fStockQty").value)||0);
-  saveAll(); closeStockModal();
-  var cur=document.querySelector(".pg.on");
-  if(cur&&cur.id==="pg_check") rCheck();
-  else rStocks();
-  toast("Stock mis \u00e0 jour \u2713");
-}
 
-// ===== PRODUITS PAGE =====
+// ── PRODUITS PAGE ─────────────────────────────────────────
 function rProds(){
   var th="<div class='stab"+(activeCatFilter==="all"?" on":"")+"' onclick=\"setCatFilter('all')\">Tous</div>";
   for(var i=0;i<cats.length;i++){
@@ -686,71 +874,171 @@ function rProds(){
 function buildProdRows(list){
   var h="";
   for(var i=0;i<list.length;i++){
-    var p=list[i]; var stock=p.stockActuel||0;
+    var p=list[i]; var sv=p.stockVal||0;
     var sessInfo="";
-    if(p.qtyJan>0||p.qtyJul>0) sessInfo="Jan:\u00d7"+p.qtyJan+" \u00b7 Jul:\u00d7"+p.qtyJul+(p.qtyApr>0?" \u00b7 Avr:\u00d7"+p.qtyApr:"");
-    if(p.qtySem>0) sessInfo="Hebdo \u00b7 "+p.duration;
-    if(p.qtyMois>0&&!p.qtySem) sessInfo="Mensuel \u00b7 "+p.duration;
-    if(p.qtyTri>0) sessInfo="Trimestriel \u00b7 "+p.duration;
-    h+="<div class='prod-row"+(stock>0?" has-stock":"")+"' style='border-top:1px solid var(--b0)'>"+
-      "<div class='prod-info'>"+
-      "<div class='prod-nm'>"+p.name+"</div>"+
-      "<div class='prod-dt'>"+sessInfo+"</div>"+
+    if(p.qtyJan||p.qtyJul) sessInfo="Jan:\u00d7"+p.qtyJan+" \u00b7 Jul:\u00d7"+p.qtyJul+(p.qtyApr?" \u00b7 Avr:\u00d7"+p.qtyApr:"");
+    if(p.qtySem) sessInfo=p.portionsTotal?p.portionsTotal+" portions/sem":"Hebdo";
+    if(p.qtyMois&&!p.qtySem) sessInfo="Mensuel";
+    if(p.qtyTri) sessInfo="Trimestriel";
+    h+="<div class='prod-row"+(sv>0?" has-stock":"")+"' style='border-top:1px solid var(--b0)'>"+
+      "<div class='prod-info'><div class='prod-nm'>"+p.name+"</div>"+
+      "<div class='prod-dt'>"+sessInfo+" \u00b7 "+eur(p.price)+" \u00b7 "+p.unit+"</div>"+
       "<div class='prod-dt' style='color:var(--t3)'>"+p.where+"</div>"+
-      (stock>0?"<div class='stock-badge'>\uD83D\uDCE6 Stock actuel : "+stock+"</div>":"")+
+      (sv>0?"<div class='need-badge'>\uD83D\uDCE6 En stock : "+fracLabel(sv)+" "+p.unit+"</div>":"")+
       "</div>"+
-      "<div style='display:flex;gap:5px;align-items:center;flex-shrink:0'>"+
-      "<div style='font-family:Syne,sans-serif;font-size:11px;font-weight:700;color:var(--a)'>"+eur(p.price||0)+"</div>"+
-      "<button class='edit-btn' onclick=\"openEditProd('"+p.id+"')\">"+
-      "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/></svg>"+
-      "</button></div></div>";
+      "<button class='edit-btn' onclick=\"openEditProd('"+p.id+"')\"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7'/><path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z'/></svg></button>"+
+      "</div>";
   }
   return h;
 }
 function setCatFilter(id){ activeCatFilter=id; rProds(); }
 function tglCatP(id){ var el=gid("ps_"+id); if(el) el.classList.toggle("open"); }
 
-// ===== BILAN PAGE =====
+// ── AGENDA / CALENDAR ─────────────────────────────────────
+var MONTHS = ["Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
+var DAYS_S = ["L","M","M","J","V","S","D"];
+
+function rAgenda(){
+  renderCalendar();
+  renderUpcoming();
+}
+function renderCalendar(){
+  var year=currentCalYear; var month=currentCalMonth;
+  var firstDay=new Date(year,month,1).getDay(); // 0=Sun
+  firstDay=(firstDay+6)%7; // Mon=0
+  var daysInMonth=new Date(year,month+1,0).getDate();
+  var today=new Date();
+  var sessMonths={0:"jan",3:"apr",6:"jul",9:"oct"};
+  var sessColors={jan:"#3ddc84",apr:"#ffbb33",jul:"#3ddc84",oct:"#ffbb33"};
+
+  var h="<div class='cal-nav'>"+
+    "<button class='cal-nav-btn' onclick='calPrev()'>\u2039</button>"+
+    "<div class='cal-month-title'>"+MONTHS[month]+" "+year+"</div>"+
+    "<button class='cal-nav-btn' onclick='calNext()'>\u203a</button>"+
+    "</div>"+
+    "<div class='cal-grid'>";
+  for(var d=0;d<7;d++) h+="<div class='cal-dh'>"+DAYS_S[d]+"</div>";
+  for(var b=0;b<firstDay;b++) h+="<div class='cal-d empty'></div>";
+  for(var d=1;d<=daysInMonth;d++){
+    var isToday=(d===today.getDate()&&month===today.getMonth()&&year===today.getFullYear());
+    var sessId=sessMonths[month];
+    var isSess1=(sessId&&(d===1||d<=3));
+    var cls="cal-d"+(isToday?" today":"")+(isSess1?" sess-day":"");
+    var dot=isSess1?"<div class='cal-dot' style='background:"+(sessColors[sessId]||"var(--a)")+"'></div>":"";
+    h+="<div class='"+cls+"'>"+d+dot+"</div>";
+  }
+  h+="</div>";
+  setH("calGrid",h);
+}
+function calPrev(){ currentCalMonth--; if(currentCalMonth<0){currentCalMonth=11;currentCalYear--;} renderCalendar(); }
+function calNext(){ currentCalMonth++; if(currentCalMonth>11){currentCalMonth=0;currentCalYear++;} renderCalendar(); }
+
+function renderUpcoming(){
+  var now=new Date(); var h="";
+  var upcoming=[];
+  var sessOrder=[{id:"apr",month:3},{id:"jul",month:6},{id:"oct",month:9},{id:"jan",month:0}];
+  for(var i=0;i<sessOrder.length;i++){
+    var s=sessOrder[i]; var d=new Date(now.getFullYear(),s.month,1);
+    if(d<now) d.setFullYear(now.getFullYear()+1);
+    var days=Math.ceil((d-now)/86400000);
+    var sess=findSess(s.id); if(!sess) continue;
+    var sp=getProdsForSess(s.id); var done=0;
+    for(var j=0;j<sp.length;j++) if(isChecked(s.id,sp[j].id)) done++;
+    var pct=sp.length?Math.round(done/sp.length*100):0;
+    upcoming.push({sess:sess,days:days,pct:pct,cost:0});
+  }
+  upcoming.sort(function(a,b){return a.days-b.days;});
+  for(var i=0;i<upcoming.length;i++){
+    var u=upcoming[i]; var urgent=u.days<=30;
+    h+="<div class='upcoming-card"+(urgent?" urgent":"")+"'>"+
+      "<div class='up-left'>"+
+      "<div class='up-name'>"+u.sess.name+"</div>"+
+      "<div class='up-label'>"+u.sess.label+"</div>"+
+      "</div>"+
+      "<div class='up-right'>"+
+      "<div class='up-days"+(urgent?" urgent-txt":"")+"'>"+(u.days===0?"Aujourd\u2019hui":u.days===1?"Demain":u.days+" jours")+"</div>"+
+      "<div class='up-prog'>"+u.pct+"% pr\u00e9par\u00e9</div>"+
+      "</div></div>";
+  }
+  setH("upcomingList",h);
+  // Weekly food reminder
+  var now2=new Date(); var dayOfWeek=now2.getDay();
+  var daysToFriday=(5-dayOfWeek+7)%7;
+  var daysToSat=(6-dayOfWeek+7)%7;
+  setH("weeklyReminder",
+    "<div class='week-card'>"+
+    "<div style='font-size:12px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px'>Drive alimentaire</div>"+
+    "<div style='font-size:13px;color:var(--t2)'>Vendredi dans <strong>"+daysToFriday+" jours</strong> \u00b7 Samedi dans <strong>"+daysToSat+" jours</strong></div>"+
+    "<div style='font-size:11px;color:var(--t3);margin-top:4px'>Drive Hyper U \u00b7 max 25\u20ac/j TR \u00b7 ~50\u20ac/semaine</div>"+
+    "</div>");
+}
+
+// ── BILAN PAGE ────────────────────────────────────────────
 function rBilan(){
-  var totalAn=0; for(var i=0;i<prods.length;i++) totalAn+=prods[i].price*(prods[i].qtyJan+prods[i].qtyJul+prods[i].qtyApr+prods[i].qtyOct);
-  var totalAlim=0; for(var i=0;i<prods.length;i++) totalAlim+=prods[i].price*(prods[i].qtySem*52+prods[i].qtyMois*12+prods[i].qtyTri*4);
-  var stockTotal=0; for(var i=0;i<prods.length;i++) stockTotal+=prods[i].stockActuel||0;
+  var totalHyg=0,totalAlim=0;
+  for(var i=0;i<prods.length;i++){
+    var p=prods[i];
+    var annual=(p.qtyJan+p.qtyJul+p.qtyApr+p.qtyOct)*p.price;
+    var alimAnnual=(p.qtySem*52+p.qtyMois*12+p.qtyTri*4)*p.price;
+    totalHyg+=annual; totalAlim+=alimAnnual;
+  }
+  var stockItems=prods.filter(function(p){return (p.stockVal||0)>0;}).length;
   setH("bilanStats",
-    "<div class='stc'><div class='stc-v'>"+eur(totalAn)+"</div><div class='stc-u'>/an</div><div class='stc-l'>Hygi\u00e8ne &amp; entretien</div></div>"+
-    "<div class='stc'><div class='stc-v'>"+eur(totalAlim)+"</div><div class='stc-u'>/an</div><div class='stc-l'>Alimentaire estim\u00e9</div></div>"+
-    "<div class='stc'><div class='stc-v'>"+stockTotal+"</div><div class='stc-u'>unit\u00e9s</div><div class='stc-l'>En stock actuellement</div></div>"+
-    "<div class='stc'><div class='stc-v'>"+prods.length+"</div><div class='stc-u'>produits</div><div class='stc-l'>Dans le catalogue</div></div>"
+    "<div class='stc'><div class='stc-v'>"+Math.round(totalHyg)+"</div><div class='stc-u'>\u20ac/an</div><div class='stc-l'>Hygi\u00e8ne + entretien</div></div>"+
+    "<div class='stc'><div class='stc-v'>"+Math.round(totalAlim)+"</div><div class='stc-u'>\u20ac/an</div><div class='stc-l'>Alimentaire estim\u00e9</div></div>"+
+    "<div class='stc'><div class='stc-v'>"+stockItems+"</div><div class='stc-u'>produits</div><div class='stc-l'>En stock actuellement</div></div>"+
+    "<div class='stc'><div class='stc-v'>"+prods.length+"</div><div class='stc-u'>total</div><div class='stc-l'>Dans le catalogue</div></div>"
   );
   var sh="";
   for(var si=0;si<sessions.length;si++){
     var s=sessions[si]; var sp=getProdsForSess(s.id);
     var done=0; for(var i=0;i<sp.length;i++) if(isChecked(s.id,sp[i].id)) done++;
-    var pct=sp.length>0?Math.round(done/sp.length*100):0;
+    var pct=sp.length?Math.round(done/sp.length*100):0;
     var cost=0; for(var i=0;i<sp.length;i++) cost+=sp[i].price*getQtyForSess(sp[i],s.id);
-    var stockCover=0; for(var i=0;i<sp.length;i++) if((sp[i].stockActuel||0)>=getQtyForSess(sp[i],s.id)) stockCover++;
+    var stockCover=0; for(var i=0;i<sp.length;i++) if((sp[i].stockVal||0)>=getQtyForSess(sp[i],s.id)) stockCover++;
     sh+="<div class='sess-row'>"+
-      "<div class='sess-row-hd'>"+
-      "<div><div class='sess-row-nm'>"+s.name+"</div>"+
-      "<div class='sess-row-dt'>"+s.label+" \u00b7 "+sp.length+" produits \u00b7 ~"+eur(cost)+(stockCover>0?" \u00b7 "+stockCover+" d\u00e9j\u00e0 en stock":"")+
+      "<div class='sess-row-hd'><div>"+
+      "<div class='sess-row-nm'>"+s.name+"</div>"+
+      "<div class='sess-row-dt'>"+s.label+" \u00b7 "+sp.length+" produits \u00b7 ~"+Math.round(cost)+"\u20ac"+(stockCover?" \u00b7 "+stockCover+" en stock":"")+
       "</div></div>"+
       "<div class='sess-pct' style='color:"+(pct===100?"var(--grn)":"var(--a)")+"'>"+pct+"%</div>"+
       "</div>"+
       "<div class='sess-prog-bar'><div style='height:100%;width:"+pct+"%;background:"+(pct===100?"var(--grn)":"var(--a)")+";border-radius:2px;transition:width .4s'></div></div>"+
       "</div>";
   }
+  // Cat breakdown
+  sh+="<div class='shd-t' style='margin:14px 0 10px'>R\u00e9partition par cat\u00e9gorie</div>";
+  var catCosts=[]; var maxCost=1;
+  for(var ci=0;ci<cats.length;ci++){
+    var cat=cats[ci]; var cp=prods.filter(function(p){return p.cat===cat.id;});
+    var cost=0; for(var i=0;i<cp.length;i++) cost+=cp[i].price*(cp[i].qtyJan+cp[i].qtyJul+cp[i].qtyApr+cp[i].qtyOct+cp[i].qtySem*52/12+cp[i].qtyMois+cp[i].qtyTri/3);
+    if(cost>maxCost) maxCost=cost;
+    catCosts.push({cat:cat,cost:cost});
+  }
+  var grandTotal=0; for(var i=0;i<catCosts.length;i++) grandTotal+=catCosts[i].cost;
+  for(var i=0;i<catCosts.length;i++){
+    var cc=catCosts[i]; if(cc.cost<0.5) continue;
+    var pct2=Math.round(cc.cost/Math.max(grandTotal,1)*100);
+    sh+="<div style='margin-bottom:11px'>"+
+      "<div style='display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--t2);margin-bottom:5px'>"+
+      "<div style='display:flex;align-items:center;gap:7px'><div class='cat-dot' style='background:"+cc.cat.color+"'></div>"+cc.cat.icon+" "+cc.cat.name+"</div>"+
+      "<div style='font-weight:600'>"+Math.round(cc.cost)+"\u20ac/mois \u00b7 "+pct2+"%</div></div>"+
+      "<div style='height:3px;background:var(--l3);border-radius:2px;overflow:hidden'>"+
+      "<div style='height:100%;width:"+pct2+"%;background:"+cc.cat.color+";border-radius:2px'></div></div></div>";
+  }
   setH("bilanBody",sh);
 }
 
-// ===== MODAL PRODUIT =====
+// ── MODAL PRODUIT ─────────────────────────────────────────
 function openAddProd(){
   editProdId=null;
   setH("prodModalT","Nouveau produit");
-  ["fProdName","fWhere","fDuration"].forEach(function(id){ gid(id).value=""; });
-  ["fPrice","fQtyJan","fQtyJul","fQtyApr","fQtyOct","fQtySem","fQtyMois","fQtyTri"].forEach(function(id){ gid(id).value="0"; });
-  gid("deleteProdBtn").style.display="none";
+  ["fProdName","fWhere","fDuration","fUnit"].forEach(function(id){ if(gid(id)) gid(id).value=""; });
+  ["fPrice","fQtyJan","fQtyJul","fQtyApr","fQtyOct","fQtySem","fQtyMois","fQtyTri","fPortions"].forEach(function(id){ if(gid(id)) gid(id).value="0"; });
+  if(gid("deleteProdBtn")) gid("deleteProdBtn").style.display="none";
   fillCatSel(cats.length?cats[0].id:null);
   gid("prodModal").classList.add("show");
-  setTimeout(function(){ gid("fProdName").focus(); },120);
+  setTimeout(function(){ if(gid("fProdName")) gid("fProdName").focus(); },120);
 }
 function openEditProd(id){
   var p=findProd(id); if(!p) return;
@@ -765,14 +1053,16 @@ function openEditProd(id){
   gid("fQtySem").value=p.qtySem||0;
   gid("fQtyMois").value=p.qtyMois||0;
   gid("fQtyTri").value=p.qtyTri||0;
+  gid("fPortions").value=p.portionsTotal||0;
   gid("fWhere").value=p.where||"";
   gid("fDuration").value=p.duration||"";
+  gid("fUnit").value=p.unit||"unit\u00e9";
   gid("deleteProdBtn").style.display="flex";
   fillCatSel(p.cat);
   gid("prodModal").classList.add("show");
 }
 function fillCatSel(selId){
-  var sel=gid("fCat"); sel.innerHTML="";
+  var sel=gid("fCat"); if(!sel) return; sel.innerHTML="";
   for(var i=0;i<cats.length;i++){
     var o=document.createElement("option"); o.value=cats[i].id;
     o.textContent=cats[i].icon+" "+cats[i].name;
@@ -792,9 +1082,11 @@ function saveProd(){
     qtySem:parseInt(gid("fQtySem").value)||0,
     qtyMois:parseInt(gid("fQtyMois").value)||0,
     qtyTri:parseInt(gid("fQtyTri").value)||0,
+    portionsTotal:parseInt(gid("fPortions").value)||0,
     where:gid("fWhere").value.trim(),
     duration:gid("fDuration").value.trim(),
-    stockActuel:editProdId?(findProd(editProdId)?.stockActuel||0):0
+    unit:gid("fUnit").value.trim()||"unit\u00e9",
+    stockVal:editProdId?(findProd(editProdId)?.stockVal||0):0
   };
   if(editProdId){ for(var i=0;i<prods.length;i++) if(prods[i].id===editProdId){ prods[i]=obj; break; } toast("Modifi\u00e9 \u2713"); }
   else{ prods.push(obj); toast("Ajout\u00e9 \u2713"); }
@@ -805,16 +1097,16 @@ function saveProd(){
 function deleteProdConfirm(){
   if(!editProdId) return;
   var p=findProd(editProdId);
-  cfmDlg("Supprimer ?",(p?p.name:"")+" sera supprim\u00e9 d\u00e9finitivement.",function(){
-    prods=prods.filter(function(x){ return x.id!==editProdId; });
+  cfmDlg("Supprimer ?",(p?p.name:"")+" sera supprim\u00e9.",function(){
+    prods=prods.filter(function(x){return x.id!==editProdId;});
     saveAll(); closeProdModal();
     var cur=document.querySelector(".pg.on");
-    if(cur){ if(cur.id==="pg_check") rCheck(); else if(cur.id==="pg_stocks") rStocks(); else if(cur.id==="pg_prods") rProds(); else rBilan(); }
+    if(cur){ if(cur.id==="pg_check") rCheck(); else if(cur.id==="pg_stocks") rStocks(); else rProds(); }
     toast("Supprim\u00e9");
   },"Supprimer","danger");
 }
 
-// ===== MODAL CATEGORIE =====
+// ── MODAL CATEGORIE ───────────────────────────────────────
 var selectedColor=CAT_COLORS[0];
 function openCatModal(){
   gid("fCatName").value=""; gid("fCatIcon").value=""; selectedColor=CAT_COLORS[0];
@@ -830,12 +1122,37 @@ function openCatModal(){
 function closeCatModal(){ gid("catModal").classList.remove("show"); }
 function saveCat(){
   var name=gid("fCatName").value.trim(); if(!name){ toast("Entre un nom"); return; }
-  var icon=gid("fCatIcon").value.trim()||"📦";
+  var icon=gid("fCatIcon").value.trim()||"\uD83D\uDCE6";
   cats.push({id:uid(),name:name,color:selectedColor,icon:icon});
   saveAll(); closeCatModal(); rProds(); toast("Cat\u00e9gorie cr\u00e9\u00e9e \u2713");
 }
 
-// ===== CONFIRM =====
+// ── EXPORT / IMPORT ───────────────────────────────────────
+function exportData(){
+  var data={cats:cats,prods:prods,checked:checked,portions:portions,sessions:sessions};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a"); a.href=url;
+  a.download="thiathie_backup_"+new Date().toISOString().slice(0,10)+".json";
+  a.click(); URL.revokeObjectURL(url); toast("Export\u00e9 \u2713");
+}
+function importData(){
+  var inp=document.createElement("input"); inp.type="file"; inp.accept=".json";
+  inp.onchange=function(e){
+    var f=e.target.files[0]; if(!f) return;
+    var r=new FileReader(); r.onload=function(ev){
+      try{
+        var d=JSON.parse(ev.target.result);
+        if(d.cats) cats=d.cats; if(d.prods) prods=d.prods;
+        if(d.checked) checked=d.checked; if(d.portions) portions=d.portions;
+        if(d.sessions) sessions=d.sessions;
+        saveAll(); go("check"); toast("Import\u00e9 \u2713");
+      }catch(err){ toast("Fichier invalide"); }
+    }; r.readAsText(f);
+  }; inp.click();
+}
+
+// ── CONFIRM ───────────────────────────────────────────────
 function cfmDlg(title,msg,cb,okLabel,okClass){
   gid("cfT").textContent=title; gid("cfM").textContent=msg; cfCb=cb;
   var ok=gid("cfOk"); ok.textContent=okLabel||"Supprimer"; ok.className="btn "+(okClass||"danger");
@@ -844,11 +1161,19 @@ function cfmDlg(title,msg,cb,okLabel,okClass){
 }
 function closeCf(){ gid("cfb").classList.remove("show"); cfCb=null; }
 
-// ===== INIT =====
+// ── INIT ──────────────────────────────────────────────────
 loadAll();
 for(var i=0;i<cats.length;i++) openCats[cats[i].id]=true;
+// Auto-detect active session
+if(!localStorage.getItem("th4_sess")) activeSess=detectSession();
 rCheck();
 
+// Set today's date in header
+(function(){
+  var d=new Date();
+  var el=document.getElementById("todayDate");
+  if(el) el.textContent=d.toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"});
+})();
 </script>
 </body>
 </html>

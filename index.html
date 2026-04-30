@@ -646,29 +646,44 @@ function go(name){
 
 // Auto-detect current session based on today's date
 function detectSession(){
+  // Always show the NEXT upcoming big session (or semaine for alim)
+  // so you always have a view on upcoming purchases
   var now = new Date();
   var m = now.getMonth(); // 0-11
   var d = now.getDate();
-  // Jan-Mar: post-session 1 → next is Apr mini
-  if(m>=0&&m<3) return "apr";
-  // Apr: mini recharge
-  if(m===3) return "apr";
-  // May-Jun: post-apr → next is Jul
+  // Prochaine grosse session hygiène/entretien :
+  // Jan (m=0) session faite → prochaine = Juillet
+  // Avr (m=3) mini-recharge → mais aussi anticiper Juillet dès mi-avril
+  // Juillet (m=6) session faite → prochaine = Janvier suivant
+  // Oct (m=9) mini-recharge → anticiper Janvier
+
+  // Apr (mid-late): start showing Juillet
+  if(m===3 && d>=15) return "jul";
+  // Apr (early): show apr mini-recharge first
+  if(m===3) return "jul"; // show july as default, apr still clickable
+  // May, Jun: next big = Juillet
   if(m>=4&&m<6) return "jul";
-  // Jul-Sep: session 2
-  if(m>=6&&m<9) return "jul";
-  // Oct: mini recharge
-  if(m===9) return "oct";
-  // Nov-Dec: post-oct → next is Jan
-  return "jan";
+  // Juillet, Août, Sep: session faite → prochaine = Janvier
+  if(m>=6&&m<9) return "jan";
+  // Oct (early): show oct mini, but already anticipate Jan
+  if(m===9 && d<15) return "jan";
+  if(m===9) return "jan";
+  // Nov, Déc: next big = Janvier
+  if(m>=10) return "jan";
+  // Jan, Fév, Mars: session faite → prochaine = Juillet
+  if(m>=0&&m<3) return "jul";
+  return "jul";
 }
 
 // ── CHECK PAGE ────────────────────────────────────────────
 function rCheck(){
   var th="";
+  var nxtSess=detectSession();
   for(var i=0;i<sessions.length;i++){
     var s=sessions[i];
-    th+="<div class='stab"+(s.id===activeSess?" on":"")+"' onclick=\"setSess('"+s.id+"')\">"+s.name+"</div>";
+    var isUpcoming=(s.id===nxtSess&&s.id!==activeSess);
+    th+="<div class='stab"+(s.id===activeSess?" on":"")+"' onclick=\"setSess('"+s.id+"')\">"+
+      s.name+(isUpcoming?" \u2192":"")+"</div>";
   }
   setH("sessTabs",th);
   var sess=findSess(activeSess);

@@ -1181,9 +1181,8 @@ loadAll();
 for(var i=0;i<cats.length;i++) openCats[cats[i].id]=true;
 // Auto-detect active session
 if(!localStorage.getItem("th4_sess")) activeSess=detectSession();
-requestAnimationFrame(function(){
-  rCheck();
-});
+// Render immediately — no requestAnimationFrame, pg_check already active in HTML
+rCheck();
 
 // Set today's date in header
 (function(){

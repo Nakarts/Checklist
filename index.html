@@ -408,30 +408,19 @@ body.light .sect-lbl{color:var(--a)}
 
 // ── DEFAULT DATA ──────────────────────────────────────────
 var DEF_CATS = [
-  {id:"hygiene",    name:"Hygi\u00e8ne",           color:"#3ddc84", icon:"🧴"},
-  {id:"parfums",    name:"Parfums",                  color:"#ffbb33", icon:"✨"},
-  {id:"entretien",  name:"Entretien",                color:"#5b9fff", icon:"🧹"},
-  {id:"frais",      name:"Frais semaine",            color:"#ff8c42", icon:"🥦"},
-  {id:"proteines",  name:"Prot\u00e9ines",           color:"#ff5252", icon:"🥩"},
-  {id:"congelateur",name:"Cong\u00e9lateur",         color:"#56b4e9", icon:"🧊"},
-  {id:"sauces",     name:"Sauces & Bocaux",          color:"#cc79f7", icon:"🫙"},
-  {id:"economat",   name:"\u00c9conomat",            color:"#c8a96e", icon:"📦"},
-  {id:"complements",name:"Compl\u00e9ments",         color:"#D4FF3C", icon:"💊"}
-];
-
-// Sessions: type = "hygiene" | "alim" | "mini"
-var DEF_SESSIONS = [
-  {id:"jan", name:"Janvier",    label:"Session 1 — Gros stock",  month:0,  day:1,  budgetMin:155, budgetMax:170, type:"hygiene"},
-  {id:"apr", name:"Avril",      label:"Mini-recharge",           month:3,  day:1,  budgetMin:30,  budgetMax:40,  type:"mini"},
-  {id:"jul", name:"Juillet",    label:"Session 2 — Recharge",    month:6,  day:1,  budgetMin:130, budgetMax:150, type:"hygiene"},
-  {id:"oct", name:"Octobre",    label:"Mini-recharge",           month:9,  day:1,  budgetMin:30,  budgetMax:40,  type:"mini"},
-  {id:"semaine", name:"Semaine",label:"Drive Vendredi + Samedi", month:-1, day:-1, budgetMin:45,  budgetMax:55,  type:"alim"},
-  {id:"mois",    name:"Mois",   label:"Stocks mensuels",         month:-1, day:-1, budgetMin:30,  budgetMax:50,  type:"alim"},
-  {id:"trimestre",name:"Trimestre",label:"\u00c9conomat + Compl\u00e9ments",month:-1,day:-1,budgetMin:80,budgetMax:130,type:"alim"}
+  {id:"hygiene",    name:"Hygi\u00e8ne",           color:"#3ddc84", icon:"\ud83e\uddf4"},
+  {id:"entretien",  name:"Entretien",                color:"#5b9fff", icon:"\ud83e\uddf9"},
+  {id:"parfums",    name:"Parfums & Ambiance",        color:"#ffbb33", icon:"\u2728"},
+  {id:"frais",      name:"Frais semaine",            color:"#ff8c42", icon:"\ud83e\udd66"},
+  {id:"proteines",  name:"Prot\u00e9ines",           color:"#ff5252", icon:"\ud83e\udd69"},
+  {id:"congelateur",name:"Cong\u00e9lateur",         color:"#56b4e9", icon:"\ud83e\udde7"},
+  {id:"sauces",     name:"Sauces & Pr\u00e9p. maison",color:"#cc79f7", icon:"\ud83e\udeb4"},
+  {id:"economat",   name:"\u00c9conomat",            color:"#c8a96e", icon:"\ud83d\udce6"},
+  {id:"complements",name:"Compl\u00e9ments",         color:"#D4FF3C", icon:"\ud83d\udc8a"}
 ];
 
 var DEF_PRODS = [
-  // HYGIENE
+  // ── HYGIÈNE ──
   {id:"p01",cat:"hygiene",name:"Gel douche Cottage 560ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl ~3\u20ac",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
   {id:"p02",cat:"hygiene",name:"D\u00e9odorant Sanex Sensitive 200ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl ~1,80\u20ac",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
   {id:"p03",cat:"hygiene",name:"Rexona Max Protection 45ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.50,where:"Carrefour promo",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
@@ -442,78 +431,97 @@ var DEF_PRODS = [
   {id:"p08",cat:"hygiene",name:"Masque coco Herbal Essences 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:6.00,where:"U promo",duration:"~8 mois",stockVal:0,unit:"unit\u00e9"},
   {id:"p09",cat:"hygiene",name:"Dentifrice U BIO 75ml",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
   {id:"p10",cat:"hygiene",name:"Fil dentaire U",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"U marque dist.",duration:"~3 mois",stockVal:0,unit:"unit\u00e9"},
-  {id:"p11",cat:"hygiene",name:"Papier toilette Action 24 rouleaux",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:6.50,where:"Action",duration:"~3 mois",stockVal:0,unit:"pack"},
-  {id:"p12",cat:"hygiene",name:"Gel lubrifiant 250ml Gynéas",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:7.5,where:"Pharmacie ou Amazon",duration:"~3 mois",stockVal:0,unit:"unit\u00e9"},
-  // PARFUMS
-  {id:"p13",cat:"parfums",name:"HDI N\u00b0326 Scandal",qtyJan:2,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:29.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
-  {id:"p14",cat:"parfums",name:"HDI N\u00b0332 Baccarat Rouge 540",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:34.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
-  {id:"p15",cat:"parfums",name:"Diffuseur Voyage Oriental",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:14.95,where:"HDI direct",duration:"~3-4 mois",stockVal:0,unit:"unit\u00e9"},
-  // ENTRETIEN
-  {id:"p16",cat:"entretien",name:"Lessive Briochin 2,27L",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:9.50,where:"Amazon lot -15%",duration:"~4 mois",stockVal:0,unit:"bidon"},
-  {id:"p17",cat:"entretien",name:"D\u00e9tachant Vanish Oxy 750ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"Action \u00b7 Lidl W5",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
-  {id:"p18",cat:"entretien",name:"Liquide vaisselle U 500ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.40,where:"Action ~0,90\u20ac",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
-  {id:"p19",cat:"entretien",name:"Sanytol multi-surfaces 1L",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.00,where:"Action spray",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
-  {id:"p20",cat:"entretien",name:"Sanytol SdB spray 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl W5 SdB",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
-  {id:"p21",cat:"entretien",name:"Harpic PowerPlus WC 750ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl WC gel",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
-  {id:"p22",cat:"entretien",name:"Destop d\u00e9boucheur 950ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.20,where:"Lidl \u00b7 Action",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
-  {id:"p23",cat:"entretien",name:"Dr. Beckmann nettoyant lave-linge",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Amazon lot -20%",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
-  {id:"p24",cat:"entretien",name:"Film alimentaire 20m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.89,where:"Action",duration:"~4 mois",stockVal:0,unit:"rouleau"},
-  {id:"p25",cat:"entretien",name:"Papier cuisson 33 pièces 38×42cm",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.99,where:"Action",duration:"~3 mois",stockVal:0,unit:"paquet"},
-  {id:"p26",cat:"entretien",name:"Papier aluminium Action 50m×29cm",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.98,where:"Action",duration:"~4 mois",stockVal:0,unit:"rouleau"},
-  {id:"p27",cat:"entretien",name:"Serviettes papier 200 feuilles",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"U Prix Mini",duration:"~4 mois",stockVal:0,unit:"paquet"},
-  {id:"p28",cat:"entretien",name:"Sacs poubelle Action 50L × 20",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.84,where:"Action",duration:"~17 sem",stockVal:0,unit:"pack"},
-  {id:"p29",cat:"entretien",name:"Sacs poubelle Action 30L × 20",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.32,where:"Action",duration:"~8-9 sem",stockVal:0,unit:"pack"},
-  {id:"p30",cat:"entretien",name:"\u00c9ponges spirales inox 4 pi\u00e8ces",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.50,where:"Action",duration:"~8 sem",stockVal:0,unit:"pack"},
-  {id:"p31",cat:"entretien",name:"Gants nitrile 100 pi\u00e8ces",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.50,where:"Action ou Amazon",duration:"~4 mois",stockVal:0,unit:"bo\u00eete"},
-  {id:"p32",cat:"entretien",name:"Gants de m\u00e9nage (cuisine + SdB)",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.49,where:"Action",duration:"~2 mois",stockVal:0,unit:"paire"},
-  // FRAIS SEMAINE (portions)
-  {id:"f01",cat:"frais",name:"Légumes variés (dont brocoli)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:5,qtyMois:0,qtyTri:0,price:4.0,where:"Drive Hyper U — 4€/kg",duration:"5 portions/sem (200g/portion)",stockVal:0,unit:"portion",portionsTotal:5},
-  {id:"f02",cat:"frais",name:"Oeufs",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:21,qtyMois:0,qtyTri:0,price:0.29,where:"Drive Hyper U",duration:"21 oeufs/sem (3/j)",stockVal:0,unit:"oeuf",portionsTotal:21},
-  {id:"f03",cat:"frais",name:"Yaourts nature 12×125g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:1.89,where:"Drive Hyper U",duration:"2-3/j soit 2 packs/sem",stockVal:0,unit:"pack 12x125g",portionsTotal:7},
-  {id:"f04",cat:"frais",name:"Fromage pâte dure",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:12.0,where:"Drive Hyper U — 12€/kg",duration:"300g/sem soit 50g/j",stockVal:0,unit:"portion (50g)",portionsTotal:6},
-  {id:"f05",cat:"frais",name:"Tortillas bl\u00e9",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:1.50,where:"Drive Hyper U",duration:"6/sem",stockVal:0,unit:"tortilla",portionsTotal:6},
-  {id:"f06",cat:"frais",name:"F\u00e9culents crus (riz/p\u00e2tes/quinoa)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:6,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"~700g crus/sem",stockVal:0,unit:"portion (115g cru)",portionsTotal:6},
-  // PROTEINES SEMAINE (portions)
-  {id:"f07",cat:"proteines",name:"Poulet (filet)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:4,qtyMois:0,qtyTri:0,price:6.00,where:"Drive Hyper U",duration:"800g/sem, 4 repas",stockVal:0,unit:"repas (200g)",portionsTotal:4},
-  {id:"f08",cat:"proteines",name:"Poisson blanc (merlu)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.00,where:"Drive Hyper U",duration:"300g/sem, 2 repas",stockVal:0,unit:"repas (150g)",portionsTotal:2},
-  {id:"f09",cat:"proteines",name:"Viande rouge maigre",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:5.50,where:"Drive Hyper U",duration:"350g/sem, 2 repas",stockVal:0,unit:"repas (175g)",portionsTotal:2},
-  {id:"f10",cat:"proteines",name:"Boudin noir",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"150g/sem, 1 repas",stockVal:0,unit:"repas (150g)",portionsTotal:1},
-  {id:"f11",cat:"proteines",name:"Saumon (pav\u00e9s 125g)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"Drive Hyper U",duration:"500g/sem, 3-4 repas",stockVal:0,unit:"pav\u00e9 (125g)",portionsTotal:3},
-  {id:"f12",cat:"proteines",name:"Sardines",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"300g/sem, 2 repas",stockVal:0,unit:"repas (150g)",portionsTotal:2},
-  // CONGELATEUR
-  {id:"c01",cat:"congelateur",name:"Saumon surgelé 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:11.5,where:"Drive Hyper U",duration:"4 mois congel.",stockVal:0,unit:"sachet 500g"},
-  {id:"c02",cat:"congelateur",name:"Boudin noir ×6 360g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.84,where:"Acheté frais → congelateur",duration:"3 mois congel.",stockVal:0,unit:"pack 360g"},
-  {id:"c03",cat:"congelateur",name:"Viande rouge maigre (frais → cong)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:22.0,where:"Boucherie — 22€/kg",duration:"3-4 mois congel.",stockVal:0,unit:"kg"},
-  {id:"c04",cat:"congelateur",name:"Viande grasse à mijoter (frais → cong)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:15.0,where:"Boucherie — 15€/kg",duration:"3-4 mois congel.",stockVal:0,unit:"kg"},
-  {id:"c05",cat:"congelateur",name:"Lard frais (portionn\u00e9) 200g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"1-2 mois congel.",stockVal:0,unit:"lot"},
-  {id:"c06",cat:"congelateur",name:"\u00c9pinards surgel\u00e9s 720g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"12 mois congel.",stockVal:0,unit:"paquet"},
-  {id:"c07",cat:"congelateur",name:"Merlu surgelé 10×100g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:9.0,where:"Drive Hyper U",duration:"6 mois congel.",stockVal:0,unit:"paquet 1kg"},
-  {id:"c08",cat:"congelateur",name:"Aubergine cuite en d\u00e9s 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete"},
-  {id:"c09",cat:"congelateur",name:"Pur\u00e9e de brocoli 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison \u2192 cong\u00e9lateur",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete"},
-  // SAUCES
-  {id:"s01",cat:"sauces",name:"Sardine sauce tomate (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison → congel.",duration:"3-4 j frigo • ingr.: sardine, tomate concentrée, oignon",stockVal:0,unit:"bocal"},
-  {id:"s02",cat:"sauces",name:"Pesto (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Maison → congel.",duration:"1-2 sem frigo",stockVal:0,unit:"bocal"},
-  {id:"s03",cat:"sauces",name:"Sauce poivron basilic (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison",duration:"4-5 j frigo",stockVal:0,unit:"bocal"},
-  {id:"s04",cat:"sauces",name:"Sauce curry (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison",duration:"4-5 j frigo",stockVal:0,unit:"bocal"},
-  {id:"s05",cat:"sauces",name:"Pickles oignon rouge (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison",duration:"3 sem frigo",stockVal:0,unit:"bocal"},
-  {id:"s06",cat:"sauces",name:"Chimichurri (maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison",duration:"1-2 sem frigo",stockVal:0,unit:"bocal"},
-  {id:"s07",cat:"sauces",name:"Tomates s\u00e9ch\u00e9es / huile",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.50,where:"Drive Hyper U",duration:"3-4 sem ouvert",stockVal:0,unit:"bocal"},
-  {id:"s08",cat:"sauces",name:"Gingembre (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.0,where:"Drive Hyper U",duration:"6-12 mois frigo",stockVal:0,unit:"bocal"},
-  {id:"s09",cat:"sauces",name:"Ail (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.0,where:"Drive Hyper U",duration:"6-12 mois frigo",stockVal:0,unit:"bocal"},
-  // ECONOMAT
-  {id:"e01",cat:"economat",name:"Riz / P\u00e2tes / Quinoa",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:15.00,where:"Drive Hyper U",duration:"24 mois",stockVal:0,unit:"sac (3kg)"},
-  {id:"e02",cat:"economat",name:"Huile d\u2019olive extra vierge",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Drive Hyper U",duration:"18-24 mois",stockVal:0,unit:"bouteille"},
-  {id:"e03",cat:"economat",name:"Son d\u2019avoine (muesli) 4,1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Amazon ou Bulk",duration:"12 mois",stockVal:0,unit:"sac"},
-  {id:"e04",cat:"economat",name:"Poudre d\u2019amande (muesli) 1,45 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Amazon ou Bulk",duration:"6-12 mois",stockVal:0,unit:"sac"},
-  {id:"e05",cat:"economat",name:"Noisettes (muesli) 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Lidl ou Bulk",duration:"6-12 mois",stockVal:0,unit:"sac"},
-  {id:"e06",cat:"economat",name:"Beurre de cacahu\u00e8tes 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:7.00,where:"Action ou Lidl",duration:"6-12 mois",stockVal:0,unit:"pot"},
-  {id:"e07",cat:"economat",name:"Sirop sans sucre 720ml",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.0,where:"Bulk — 5€ les 400ml",duration:"12-24 mois",stockVal:0,unit:"bouteille"},
-  // COMPLEMENTS
-  {id:"k01",cat:"complements",name:"Cacao bio 2 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:28.0,where:"Greenweez.com",duration:"~4 mois (40g/j)",stockVal:0,unit:"sac 2kg"},
-  {id:"k02",cat:"complements",name:"Créatine monohydrate 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:18.00,where:"Bulk ou MyProtein",duration:"~6 mois (5g/j)",stockVal:0.7,unit:"sac 1kg"},
-  {id:"k03",cat:"complements",name:"Huile foie de morue 100ml ×2",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:22.00,where:"Greenweez.com",duration:"~7 sem/flacon",stockVal:0,unit:"flacon"},
-  {id:"k04",cat:"complements",name:"Collagène + Vit C 2,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:25.00,where:"Bulk ou Amazon",duration:"~3 mois (10g/j)",stockVal:0,unit:"sac 2,5kg"},
-  {id:"k05",cat:"complements",name:"Avoine en poudre 2,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Bulk ou MyProtein",duration:"~5 mois (70g/sem)",stockVal:0,unit:"sac 2,5kg"}
+  {id:"p11",cat:"hygiene",name:"Papier toilette Action 24 rouleaux",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.80,where:"Action",duration:"~3 mois",stockVal:0,unit:"pack"},
+  {id:"p12",cat:"hygiene",name:"Gel lubrifiant 250ml Gyn\u00e9as",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.60,where:"Pharmacie ou Amazon",duration:"~3 mois",stockVal:0,unit:"unit\u00e9"},
+  // ── ENTRETIEN ──
+  {id:"e01",cat:"entretien",name:"Lessive Briochin 2,27L",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:9.50,where:"Amazon lot -15%",duration:"~4 mois",stockVal:0,unit:"bidon"},
+  {id:"e02",cat:"entretien",name:"D\u00e9tachant Vanish Oxy 750ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:5.00,where:"Action \u00b7 Lidl W5",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
+  {id:"e03",cat:"entretien",name:"Liquide vaisselle U 500ml",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.40,where:"Action ~0,90\u20ac",duration:"~2 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"e04",cat:"entretien",name:"Sanytol multi-surfaces 1L",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.00,where:"Action spray",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"e05",cat:"entretien",name:"Sanytol SdB spray 500ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.80,where:"Lidl W5 SdB",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"e06",cat:"entretien",name:"Harpic PowerPlus WC 750ml",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Lidl WC gel",duration:"~6 mois",stockVal:0,unit:"unit\u00e9"},
+  {id:"e07",cat:"entretien",name:"Destop d\u00e9boucheur 950ml",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:3.20,where:"Lidl \u00b7 Action",duration:"~1 an",stockVal:0,unit:"unit\u00e9"},
+  {id:"e08",cat:"entretien",name:"Dr. Beckmann nettoyant lave-linge",qtyJan:4,qtyJul:4,qtyApr:1,qtyOct:1,qtySem:0,qtyMois:0,qtyTri:0,price:2.80,where:"Amazon lot -20%",duration:"~5-6 sem",stockVal:0,unit:"unit\u00e9"},
+  {id:"e09",cat:"entretien",name:"Film alimentaire 20m",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.89,where:"Action",duration:"~4 mois",stockVal:0,unit:"rouleau"},
+  {id:"e10",cat:"entretien",name:"Papier cuisson 33 pi\u00e8ces 38\u00d742cm",qtyJan:2,qtyJul:2,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.99,where:"Action",duration:"~3 mois",stockVal:0,unit:"paquet"},
+  {id:"e11",cat:"entretien",name:"Papier aluminium Action 50m\u00d729cm",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:2.98,where:"Action",duration:"~4 mois",stockVal:0,unit:"rouleau"},
+  {id:"e12",cat:"entretien",name:"Serviettes papier 200 feuilles",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.80,where:"U Prix Mini",duration:"~4 mois",stockVal:0,unit:"paquet"},
+  {id:"e13",cat:"entretien",name:"Sacs poubelle Action 50L \u00d7 20",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.84,where:"Action",duration:"~17 sem",stockVal:0,unit:"pack"},
+  {id:"e14",cat:"entretien",name:"Sacs poubelle Action 30L \u00d7 20",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:1.32,where:"Action",duration:"~8-9 sem",stockVal:0,unit:"pack"},
+  {id:"e15",cat:"entretien",name:"\u00c9ponges spirales inox 4 pi\u00e8ces",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.50,where:"Action",duration:"~8 sem",stockVal:0,unit:"pack"},
+  {id:"e16",cat:"entretien",name:"Gants nitrile 100 pi\u00e8ces",qtyJan:2,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:4.50,where:"Action ou Amazon",duration:"~4 mois",stockVal:0,unit:"bo\u00eete"},
+  {id:"e17",cat:"entretien",name:"Gants de m\u00e9nage (cuisine + SdB)",qtyJan:3,qtyJul:3,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:0.49,where:"Action",duration:"~2 mois",stockVal:0,unit:"paire"},
+  // ── PARFUMS (session ind\u00e9pendante, achat janvier uniquement) ──
+  {id:"pf1",cat:"parfums",name:"HDI N\u00b0326 Scandal",qtyJan:2,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:29.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
+  {id:"pf2",cat:"parfums",name:"HDI N\u00b0332 Baccarat Rouge 540",qtyJan:1,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:34.95,where:"HDI direct",duration:"~6-12 mois",stockVal:0,unit:"flacon"},
+  {id:"pf3",cat:"parfums",name:"Diffuseur Voyage Oriental",qtyJan:1,qtyJul:1,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:14.95,where:"HDI direct",duration:"~3-4 mois",stockVal:0,unit:"unit\u00e9"},
+  // ── FRAIS SEMAINE ──
+  // L\u00e9gumes: 13 repas/sem \u00d7 200g = 2,6kg \u00e0 3\u20ac/kg = ~7,80\u20ac/sem
+  {id:"f01",cat:"frais",name:"L\u00e9gumes vari\u00e9s (dont brocoli)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:13,qtyMois:0,qtyTri:0,price:0.60,where:"Drive Hyper U \u2014 3\u20ac/kg",duration:"200g/repas \u00b7 13\u00d7/sem",stockVal:0,unit:"portion (200g)",portionsTotal:13},
+  // Oeufs: 7/sem (1/jour), 0,29\u20ac/oeuf
+  {id:"f02",cat:"frais",name:"Oeufs",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:7,qtyMois:0,qtyTri:0,price:0.29,where:"Drive Hyper U",duration:"7 oeufs/sem (1/j)",stockVal:0,unit:"oeuf",portionsTotal:7},
+  // Yaourts: 14 pots/sem (2/j) = 2 packs 12\u00d7125g
+  {id:"f03",cat:"frais",name:"Yaourts nature 12\u00d7125g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:1.89,where:"Drive Hyper U",duration:"2 packs/sem (14 pots \u00e0 2/j)",stockVal:0,unit:"pack 12\u00d7125g"},
+  // Fromage: 13 repas \u00d7 25g = 325g/sem \u00e0 12\u20ac/kg
+  {id:"f04",cat:"frais",name:"Fromage p\u00e2te dure",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:13,qtyMois:0,qtyTri:0,price:0.30,where:"Drive Hyper U \u2014 12\u20ac/kg",duration:"25g/repas \u00b7 13\u00d7/sem",stockVal:0,unit:"portion (25g)",portionsTotal:13},
+  // Tortillas maison: 7/sem, 0,10\u20ac/unit\u00e9
+  {id:"f05",cat:"frais",name:"Tortillas bl\u00e9 (ou maison)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:7,qtyMois:0,qtyTri:0,price:0.10,where:"Drive Hyper U ou maison",duration:"7/sem",stockVal:0,unit:"tortilla",portionsTotal:7},
+  // F\u00e9culents: 52 repas/mois \u00e0 115g cru \u00e0 2\u20ac/kg (achats bulk trimestriel, voir \u00e9conomat)
+  {id:"f06",cat:"frais",name:"F\u00e9culents crus (riz/p\u00e2tes/quinoa)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:52,qtyTri:0,price:0.23,where:"Stock \u00e9conomat (riz 2\u20ac/kg)",duration:"115g cru/repas \u00b7 ~13\u00d7/sem",stockVal:0,unit:"portion (115g cru)"},
+  // ── PROT\u00c9INES ──
+  // Poulet: 5 repas/sem \u00d7 150g = 750g/sem, ~10\u20ac/kg \u2192 1,50\u20ac/repas
+  {id:"pr1",cat:"proteines",name:"Poulet (filet)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:5,qtyMois:0,qtyTri:0,price:1.50,where:"Drive Hyper U (~10\u20ac/kg)",duration:"150g/repas \u00b7 5\u00d7/sem",stockVal:0,unit:"repas (150g)",portionsTotal:5},
+  // Merlu: 2 repas/sem \u00d7 150g, 9\u20ac/kg \u2192 1,35\u20ac/repas
+  {id:"pr2",cat:"proteines",name:"Merlu surgel\u00e9 (10\u00d7100g)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:1.35,where:"Drive Hyper U (9\u20ac/kg)",duration:"150g/repas \u00b7 2\u00d7/sem \u2192 cong\u00e9lateur",stockVal:0,unit:"repas (150g)",portionsTotal:2},
+  // Viande rouge grasse: 1 repas/sem \u00d7 160g, 15\u20ac/kg \u2192 2,40\u20ac
+  {id:"pr3",cat:"proteines",name:"Viande rouge grasse (\u00e0 mijoter)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.40,where:"Boucherie (15\u20ac/kg) \u2192 cong\u00e9lateur",duration:"160g/repas \u00b7 1\u00d7/sem",stockVal:0,unit:"repas (160g)",portionsTotal:1},
+  // Viande rouge maigre: 1 repas/sem \u00d7 160g, 22\u20ac/kg \u2192 3,52\u20ac
+  {id:"pr4",cat:"proteines",name:"Viande rouge maigre",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:3.52,where:"Boucherie (22\u20ac/kg) \u2192 cong\u00e9lateur",duration:"160g/repas \u00b7 1\u00d7/sem",stockVal:0,unit:"repas (160g)",portionsTotal:1},
+  // Boudin noir: 2 repas/sem \u00d7 180g, 3,84\u20ac/360g \u2192 1,92\u20ac/repas
+  {id:"pr5",cat:"proteines",name:"Boudin noir",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:1.92,where:"Boucherie (3,84\u20ac/360g) \u2192 cong\u00e9lateur",duration:"180g/repas \u00b7 2\u00d7/sem",stockVal:0,unit:"repas (180g)",portionsTotal:2},
+  // Saumon surgel\u00e9: 1 repas/sem \u00d7 125g, 11,50\u20ac/500g \u2192 2,88\u20ac/repas
+  {id:"pr6",cat:"proteines",name:"Saumon surgel\u00e9 (pav\u00e9s 125g)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:2.88,where:"Drive Hyper U (11,50\u20ac/500g)",duration:"125g/repas \u00b7 1\u00d7/sem",stockVal:0,unit:"repas (125g)",portionsTotal:1},
+  // Sardines conserve: 2 repas/sem \u00d7 135g bo\u00eete, 1,30\u20ac/bo\u00eete
+  {id:"pr7",cat:"proteines",name:"Sardines en conserve 135g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:1.30,where:"Drive Hyper U ou Leader Price",duration:"1 bo\u00eete/repas \u00b7 2\u00d7/sem",stockVal:0,unit:"bo\u00eete (135g)",portionsTotal:2},
+  // ── CONG\u00c9LATEUR (achats mensuels pour remplir le stock) ──
+  {id:"c01",cat:"congelateur",name:"Saumon surgel\u00e9 500g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:11.50,where:"Drive Hyper U",duration:"4 pavés \u00d7 125g",stockVal:0,unit:"sachet 500g"},
+  {id:"c02",cat:"congelateur",name:"Boudin noir \u00d76 360g (frais \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.84,where:"Boucherie / Drive",duration:"4 portions",stockVal:0,unit:"pack 360g"},
+  {id:"c03",cat:"congelateur",name:"Viande rouge maigre (frais \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:22.00,where:"Boucherie 22\u20ac/kg",duration:"portion 160g \u00d7 ~6",stockVal:0,unit:"kg"},
+  {id:"c04",cat:"congelateur",name:"Viande grasse \u00e0 mijoter (frais \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:15.00,where:"Boucherie 15\u20ac/kg",duration:"portion 160g \u00d7 ~6",stockVal:0,unit:"kg"},
+  {id:"c05",cat:"congelateur",name:"Merlu surgel\u00e9 10\u00d7100g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:9.00,where:"Drive Hyper U",duration:"~5 repas",stockVal:0,unit:"paquet 1kg"},
+  {id:"c06",cat:"congelateur",name:"Lard frais portionn\u00e9 200g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Drive Hyper U",duration:"1-2 mois congel.",stockVal:0,unit:"lot"},
+  {id:"c07",cat:"congelateur",name:"\u00c9pinards surgel\u00e9s 600g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.75,where:"Drive Hyper U",duration:"12 mois congel.",stockVal:0,unit:"paquet"},
+  {id:"c08",cat:"congelateur",name:"Aubergine cuite en d\u00e9s (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison avec l\u00e9gumes du drive",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete 500g"},
+  {id:"c09",cat:"congelateur",name:"Pur\u00e9e de brocoli (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison avec brocoli drive",duration:"6 mois congel.",stockVal:0,unit:"bo\u00eete 500g"},
+  // ── SAUCES & PR\u00c9PARATIONS MAISON ──
+  // Toutes pr\u00e9par\u00e9es avec les ingr\u00e9dients d\u00e9j\u00e0 achet\u00e9s (l\u00e9gumes, sardines,\u2026)
+  // Co\u00fbt = ingr\u00e9dients seulement, pas de rachat suppl\u00e9mentaire
+  {id:"s01",cat:"sauces",name:"Sardine sauce tomate (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison (sardines + tomate conc. + oignon)",duration:"portion 250g sous vide \u00b7 3 mois congel.",stockVal:0,unit:"sachet 250g"},
+  {id:"s02",cat:"sauces",name:"Pesto (maison \u2192 congel + bocal frigo)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,where:"Maison (basilic + poudre amande + huile olive + ail)",duration:"portion 100g congel \u00b7 bocal 40g frigo 3 sem",stockVal:0,unit:"lot (250g total)"},
+  {id:"s03",cat:"sauces",name:"Sauce poivron basilic (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,where:"Maison (poivrons + basilic + huile + ail)",duration:"portion 100g \u00b7 3 mois congel.",stockVal:0,unit:"sachet 100g"},
+  {id:"s04",cat:"sauces",name:"Sauce curry (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison (oignon + tomate + curry + lait coco)",duration:"portion 100g \u00b7 3 mois congel.",stockVal:0,unit:"sachet 100g"},
+  {id:"s05",cat:"sauces",name:"L\u00e9gumes cuits en sauce (maison \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.80,where:"Maison avec l\u00e9gumes drive",duration:"portion 200g \u00b7 3 mois congel.",stockVal:0,unit:"bo\u00eete 200g"},
+  {id:"s06",cat:"sauces",name:"Pickles oignon rouge (maison \u2192 bocal frigo)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison (oignon rouge + vinaigre + sucre)",duration:"bocal 50g \u00b7 3 sem frigo",stockVal:0,unit:"bocal 50g"},
+  {id:"s07",cat:"sauces",name:"Chimichurri (maison \u2192 bocal frigo)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,where:"Maison (persil + ail + huile + vinaigre)",duration:"bocal 50g \u00b7 2 sem frigo",stockVal:0,unit:"bocal 50g"},
+  {id:"s08",cat:"sauces",name:"Tomates s\u00e9ch\u00e9es huile (maison \u2192 bocal)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,where:"Maison (tomates + huile olive + herbes)",duration:"bocal 200g \u00b7 1 mois frigo",stockVal:0,unit:"bocal 200g"},
+  {id:"s09",cat:"sauces",name:"Gingembre (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,where:"Épicerie asiatique",duration:"6-12 mois frigo ouvert",stockVal:0,unit:"bocal"},
+  {id:"s10",cat:"sauces",name:"Ail (bocal industriel) 250g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,where:"\u00c9picerie asiatique",duration:"6-12 mois frigo ouvert",stockVal:0,unit:"bocal"},
+  // Chorizo/Coppa (achet\u00e9 frais \u2192 congel pour portions)
+  {id:"s11",cat:"sauces",name:"Chorizo \u00b7 Coppa (frais \u2192 congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.50,where:"Drive Hyper U",duration:"3 mois congel.",stockVal:0,unit:"lot 80g"},
+  // ── \u00c9CONOMAT (achat trimestriel bulk) ──
+  {id:"ec1",cat:"economat",name:"Riz / P\u00e2tes / Quinoa",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:15.00,where:"Drive Hyper U",duration:"6 kg \u00b7 ~4 mois",stockVal:0,unit:"sac 3kg"},
+  {id:"ec2",cat:"economat",name:"Huile d\u2019olive extra vierge",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:12.00,where:"Drive Hyper U",duration:"3-4 L \u00b7 ~4 mois",stockVal:0,unit:"bouteille"},
+  {id:"ec3",cat:"economat",name:"Son d\u2019avoine (muesli) 4,1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Amazon ou Bulk",duration:"~12 mois",stockVal:0,unit:"sac"},
+  {id:"ec4",cat:"economat",name:"Poudre d\u2019amande (muesli) 0,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,where:"Amazon ou Bulk",duration:"~3 mois",stockVal:0,unit:"sac"},
+  {id:"ec5",cat:"economat",name:"Noisettes (muesli) 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,where:"Lidl ou Bulk",duration:"~4 mois",stockVal:0,unit:"sac"},
+  {id:"ec6",cat:"economat",name:"Beurre de cacahu\u00e8tes 900g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:7.00,where:"Action ou Lidl",duration:"~4 mois",stockVal:0,unit:"pot"},
+  {id:"ec7",cat:"economat",name:"Sirop sans sucre Bulk 400ml",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,where:"Bulk Powders",duration:"~3 mois",stockVal:0,unit:"bouteille"},
+  // ── COMPL\u00c9MENTS ──
+  {id:"k01",cat:"complements",name:"Cacao bio Greenweez 2 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:28.00,where:"Greenweez.com",duration:"~3 mois (40g/j = 7,5g prot.)",stockVal:0,unit:"sac 2kg"},
+  {id:"k02",cat:"complements",name:"Cr\u00e9atine monohydrate 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:25.00,where:"Bulk ou MyProtein",duration:"~6 mois (5g/j)",stockVal:0.7,unit:"sac 1kg"},
+  {id:"k03",cat:"complements",name:"Huile foie de morue 100ml \u00d72",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:22.00,where:"Greenweez.com",duration:"~7 sem/flacon (5ml/j)",stockVal:0,unit:"flacon"},
+  {id:"k04",cat:"complements",name:"Collag\u00e8ne + Vit C 1 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:30.00,where:"Bulk ou Amazon \u2014 2kg en stock \u2192 pas avant 2027",duration:"~200j (5g/j) \u2014 stock = 13 mois",stockVal:2,unit:"sac 1kg"},
+  {id:"k05",cat:"complements",name:"Avoine en poudre 2,5 kg",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:0,price:10.00,where:"Bulk ou MyProtein",duration:"~14 mois (6g/j) \u2014 1 sac = 14 mois !",stockVal:0,unit:"sac 2,5kg"}
 ];
 
 var FRACS = [0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5];

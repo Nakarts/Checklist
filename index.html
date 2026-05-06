@@ -257,16 +257,6 @@ body.light .sect-lbl{color:var(--a)}
 <!-- PRODUITS -->
 <div class="pg" id="pg_prods">
   <div class="pgh"><div class="pgh-t">Produits</div><div class="pgh-s">Catalogue complet</div></div>
-  <div class="sync-row">
-    <div class="sync-btn" onclick="exportData()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Exporter
-    </div>
-    <div class="sync-btn" onclick="importData()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-      Importer
-    </div>
-  </div>
   <div class="stabs" id="prodTabs"></div>
   <div id="prodList"></div>
   <div class="add-wrap">
@@ -458,7 +448,7 @@ var DEF_PRODS = [
   {id:"f04",cat:"frais",name:"Fromage p\u00e2te dure",               qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:3.90,unit:"achat 325g",where:"Drive Hyper U",duration:"325g/sem",stockVal:0},
   {id:"f05",cat:"frais",name:"Tortillas bl\u00e9",                   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:0.70,unit:"paquet 7",where:"Drive Hyper U",duration:"7/sem",stockVal:0},
   // ── PROTÉINES (trackers, prix = coût réel achat = congelateur)
-  {id:"pr1",cat:"proteines",name:"Poulet (filet)",                   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:5,qtyMois:0,qtyTri:0,price:0,unit:"repas 150g",where:"Drive Hyper U",duration:"5 repas/sem",stockVal:0},
+  {id:"pr1",cat:"proteines",name:"Poulet",                   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:5,qtyMois:0,qtyTri:0,price:0,unit:"repas 150g",where:"Drive Hyper U",duration:"5 repas/sem",stockVal:0},
   {id:"pr2",cat:"proteines",name:"Merlu surgel\u00e9",               qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:2,qtyMois:0,qtyTri:0,price:0,unit:"repas 150g",where:"\u2192 Cong\u00e9lateur",duration:"2 repas/sem",stockVal:0},
   {id:"pr3",cat:"proteines",name:"Viande rouge grasse \u00e0 mijoter",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:0,unit:"repas 160g",where:"\u2192 Cong\u00e9lateur",duration:"1 repas/sem",stockVal:0},
   {id:"pr4",cat:"proteines",name:"Viande rouge maigre",              qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:1,qtyMois:0,qtyTri:0,price:0,unit:"repas 160g",where:"\u2192 Cong\u00e9lateur",duration:"1 repas/sem",stockVal:0},
@@ -469,8 +459,8 @@ var DEF_PRODS = [
   {id:"c01",cat:"congelateur",name:"Saumon surgel\u00e9 500g",       qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:11.50,unit:"sachet",where:"Drive Hyper U",duration:"4 pav\u00e9s \u00d7125g",stockVal:0},
   {id:"c02",cat:"congelateur",name:"Boudin noir \u00d76 360g",        qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:3.84,unit:"pack",where:"Boucherie \u2192 congel",duration:"~4 portions",stockVal:0},
   {id:"c03",cat:"congelateur",name:"Viande rouge maigre",            qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:22.00,unit:"kg",where:"Boucherie 22\u20ac/kg",duration:"~6 repas",stockVal:0},
-  {id:"c04",cat:"congelateur",name:"Viande grasse \u00e0 mijoter",   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:15.00,unit:"kg",where:"Boucherie 15\u20ac/kg",duration:"~6 repas",stockVal:0},
-  {id:"c05",cat:"congelateur",name:"Poulet filet",                   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:10.00,unit:"kg",where:"Drive Hyper U",duration:"~7 repas",stockVal:0},
+  {id:"c04",cat:"congelateur",name:"Viande rouge grasse",   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:15.00,unit:"kg",where:"Boucherie 15\u20ac/kg",duration:"~6 repas",stockVal:0},
+  {id:"c05",cat:"congelateur",name:"Poulet",                   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:10.00,unit:"kg",where:"Drive Hyper U",duration:"~7 repas",stockVal:0},
   {id:"c06",cat:"congelateur",name:"Merlu surgel\u00e9 1kg",         qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:9.00,unit:"paquet",where:"Drive Hyper U",duration:"~5 repas",stockVal:0},
   {id:"c07",cat:"congelateur",name:"Lard frais portionn\u00e9",      qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,unit:"lot 200g",where:"Drive Hyper U",duration:"1-2 mois",stockVal:0},
   {id:"c08",cat:"congelateur",name:"\u00c9pinards surgel\u00e9s 600g",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.75,unit:"paquet",where:"Drive Hyper U",duration:"12 mois",stockVal:0},
@@ -480,8 +470,7 @@ var DEF_PRODS = [
   {id:"s01",cat:"sauces",name:"Sardine sauce tomate (congel)",       qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,unit:"sachet 250g",where:"Maison",duration:"3 mois congel",stockVal:0},
   {id:"s02",cat:"sauces",name:"Pesto (congel + frigo)",              qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:2.00,unit:"lot 250g",where:"Maison",duration:"3 mois congel",stockVal:0},
   {id:"s03",cat:"sauces",name:"Sauce poivron basilic (congel)",      qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.50,unit:"sachet 100g",where:"Maison",duration:"3 mois congel",stockVal:0},
-  {id:"s04",cat:"sauces",name:"Sauce curry (congel)",                qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,unit:"sachet 100g",where:"Maison",duration:"3 mois congel",stockVal:0},
-  {id:"s05",cat:"sauces",name:"L\u00e9gumes cuits en sauce (congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.80,unit:"bo\u00eete 200g",where:"Maison",duration:"3 mois congel",stockVal:0},
+  {id:"s05",cat:"sauces",name:"Poivron (congel)",qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.80,unit:"bo\u00eete 200g",where:"Maison",duration:"3 mois congel",stockVal:0},
   {id:"s06",cat:"sauces",name:"Pickles oignon rouge (frigo)",        qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,unit:"bocal 50g",where:"Maison",duration:"3 sem frigo",stockVal:0},
   {id:"s07",cat:"sauces",name:"Chimichurri (frigo)",                 qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:0.50,unit:"bocal 50g",where:"Maison",duration:"2 sem frigo",stockVal:0},
   {id:"s08",cat:"sauces",name:"Tomates s\u00e9ch\u00e9es (frigo)",   qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:1,qtyTri:0,price:1.00,unit:"bocal 200g",where:"Maison",duration:"1 mois frigo",stockVal:0},
@@ -494,7 +483,6 @@ var DEF_PRODS = [
   {id:"ec4",cat:"economat",name:"Poudre d\u2019amande 0,5kg",         qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,unit:"sac",where:"Amazon ou Bulk",duration:"~3 mois",stockVal:0},
   {id:"ec5",cat:"economat",name:"Noisettes 900g",                    qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:8.00,unit:"sac",where:"Lidl ou Bulk",duration:"~4 mois",stockVal:0},
   {id:"ec6",cat:"economat",name:"Beurre de cacahu\u00e8tes 900g",     qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:7.00,unit:"pot",where:"Action ou Lidl",duration:"~4 mois",stockVal:0},
-  {id:"ec7",cat:"economat",name:"Sirop sans sucre Bulk 400ml",       qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:5.00,unit:"bouteille",where:"Bulk Powders",duration:"~3 mois",stockVal:0},
   // ── COMPLÉMENTS
   {id:"k01",cat:"complements",name:"Cacao bio 2kg",                  qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:28.00,unit:"sac",where:"Greenweez.com",duration:"~3 mois (40g/j)",stockVal:0},
   {id:"k02",cat:"complements",name:"Cr\u00e9atine monohydrate 1kg",  qtyJan:0,qtyJul:0,qtyApr:0,qtyOct:0,qtySem:0,qtyMois:0,qtyTri:1,price:25.00,unit:"sac",where:"Bulk ou MyProtein",duration:"~6 mois (5g/j)",stockVal:0.7},
@@ -504,8 +492,8 @@ var DEF_PRODS = [
 ];
 
 // ── Fractions pour stock (0, 0.25, 0.5 ... 5) ──
-var FRACS       = [0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.5,4,5];
-var FRAC_LABELS = ["0","\u00bc","\u00bd","\u00be","1","1\u00bc","1\u00bd","1\u00be","2","2\u00bc","2\u00bd","2\u00be","3","3\u00bd","4","5"];
+var FRACS = [0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.5,4,5,6,7,8,9,10,12,14,16,18,20,22,24,26,28,30];
+var FRAC_LABELS = ["0","\u00bc","\u00bd","\u00be","1","1\u00bc","1\u00bd","1\u00be","2","2\u00bc","2\u00bd","2\u00be","3","3\u00bd","4","5","6","7","8","9","10","12","14","16","18","20","22","24","26","28","30"];
 var CAT_COLORS  = ["#3ddc84","#D4FF3C","#ffbb33","#5b9fff","#ff5252","#cc79f7","#ff8c42","#00d4aa","#c8a96e"];
 
 // ── STATE ──
@@ -826,8 +814,8 @@ function rAgenda(){
   upcoming.sort(function(a,b){ return a.days-b.days; });
   var uh="";
   upcoming.forEach(function(u){
-    uh+="<div class='upcoming-card"+(u.days<=30?" urgent":"")+"'>"+
-      "<div><div class='up-name'>"+u.sess.name+"</div><div class='up-label'>"+u.sess.label+"</div></div>"+
+    uh+="<div class='upcoming-card"+(u.days<=30?" urgent":"")+"' onclick=\"setSess('"+u.sess.id+"');go('check');\" style='cursor:pointer'>"+
+      "<div><div class='up-name'>"+u.sess.name+"</div><div class='up-label'>"+u.sess.label+" \u00b7 \u279e ouvrir checklist</div></div>"+
       "<div style='text-align:right'><div class='up-days"+(u.days<=30?" urg-t":"")+"'>"+(u.days===0?"Aujourd\u2019hui":u.days===1?"Demain":u.days+" jours")+"</div>"+
       "<div style='font-size:10px;color:var(--t3)'>"+u.pct+"% pr\u00e9par\u00e9</div></div></div>";
   });

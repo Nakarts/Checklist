@@ -4,9 +4,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#0b0f1a"/>
-<title>THIATHIE Stocks</title>
+<title>NakaGestion</title>
 <link rel="manifest" href="manifest.json"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316a34a'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial Black' font-size='34' fill='white'%3ET%3C/text%3E%3C/svg%3E"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2316a34a'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M16 48V16h6l20 22V16h6v32h-6L22 26v22z' fill='white'/%3E%3C/svg%3E"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#f5f7fb;--surface:#fff;--surface-2:#eef1f8;--text:#0e1220;--muted:#5b6478;--border:#e3e6f0;--primary:#16a34a;--primary-2:#06b6d4;--accent:#facc15;--ok:#16c784;--warn:#f59e0b;--danger:#ef4444;--shadow:0 10px 30px -12px rgba(20,25,50,.18);--radius:18px}
@@ -24,13 +24,14 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:
 body{padding-bottom:96px;padding-top:env(safe-area-inset-top)}
 .app{max-width:760px;margin:0 auto;padding:14px}
 header.top{display:flex;align-items:center;gap:10px;padding:6px 4px 14px}
-.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;font-weight:900;font-size:22px;box-shadow:var(--shadow)}
+.logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:grid;place-items:center;color:#fff;box-shadow:var(--shadow)}
+.logo svg{width:30px;height:30px}
 .brand{font-weight:900;font-size:20px;line-height:1.05}
 .brand small{display:block;font-weight:600;color:var(--muted);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-top:2px}
 .spacer{flex:1}
-.avatar{width:44px;height:44px;border-radius:50%;background:var(--surface-2);border:2px solid var(--primary);overflow:hidden;display:grid;place-items:center;cursor:pointer;color:var(--primary);font-weight:900;font-size:18px}
+.avatar{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);overflow:hidden;display:grid;place-items:center;cursor:pointer;color:var(--primary);font-weight:900;font-size:18px}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.icon-btn{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;color:var(--text);font-size:16px}
+.icon-btn{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;color:var(--text);font-size:22px;line-height:1}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .title{font-size:18px;font-weight:800;margin:0 0 8px}
@@ -83,14 +84,14 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
 <body>
 <div class="app">
   <header class="top">
-    <div class="logo">T</div>
-    <div><div class="brand">THIATHIE<small>Stocks · Agenda · Bilan</small></div></div>
+    <div class="logo"><svg viewBox="0 0 64 64" fill="white"><path d="M16 48V16h6l20 22V16h6v32h-6L22 26v22z"/></svg></div>
+    <div><div class="brand">NakaGestion<small>Stocks · Agenda · Bilan</small></div></div>
     <div class="spacer"></div>
     <button class="icon-btn" id="themeBtn" title="Thème">◐</button>
     <button class="icon-btn" id="paletteBtn" title="Palette">◉</button>
     <label class="avatar" title="Photo de profil">
       <img id="avImg" alt="" style="display:none"/>
-      <span id="avPh">T</span>
+      <span id="avPh">N</span>
       <input type="file" accept="image/*" id="avFile" hidden/>
     </label>
   </header>
@@ -258,7 +259,7 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
 </div></div>
 
 <script>
-const K='thia.v7';
+const K='thia.v8';
 const def={
   theme:'dark',palette:'forest',avatar:null,currentCat:'all',filter:'all',calMonth:null,openCat:null,
   categories:[
@@ -319,7 +320,7 @@ const def={
     // ===== FRAIS SEMAINE =====
     {id:'f01',n:'Légumes variés (dont brocoli)',cat:'frs',unit:'kg',qty:2.6,low:1,step:0.2,price:3.00,note:'Drive Hyper U · 1 lot/semaine'},
     {id:'f02',n:'Œufs (boîte de 7)',cat:'frs',unit:'pc',qty:7,low:3,step:1,price:0.29,note:'Drive Hyper U · 1 boîte/semaine'},
-    {id:'f03',n:'Yaourts nature 12×125g',cat:'frs',unit:'pack',qty:2,low:1,step:1,price:1.89,note:'Drive Hyper U · 2 packs/semaine'},
+    {id:'f03',n:'Yaourt nature 125g',cat:'frs',unit:'pc',qty:24,low:6,step:1,price:0.158,note:'Drive Hyper U · 2 packs (24 pots)/semaine'},
     {id:'f04',n:'Fromage pâte dure',cat:'frs',unit:'g',qty:325,low:100,step:50,price:0.012,note:'Drive Hyper U · ~12€/kg · 325g/semaine'},
     {id:'f05',n:'Tortillas blé (paquet de 7)',cat:'frs',unit:'pc',qty:7,low:3,step:1,price:0.10,note:'Drive Hyper U · 1 paquet/semaine'},
 
@@ -332,29 +333,29 @@ const def={
     {id:'pr06',n:'Saumon (pavés 125g)',cat:'pro',unit:'pc',qty:1,low:1,step:1,price:2.88,note:'1 repas/sem'},
     {id:'pr07',n:'Sardines en conserve 135g',cat:'pro',unit:'pc',qty:2,low:1,step:1,price:1.30,note:'2 boîtes/sem · achat hebdo'},
 
-    // ===== CONGÉLATEUR (mensuel) =====
-    {id:'c01',n:'Saumon surgelé 500g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:11.50,note:'1 sachet/mois · 4 pavés 125g · 4 mois conservation'},
-    {id:'c02',n:'Boudin noir ×6 360g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:3.84,note:'Boucherie·1 pack/mois · 4 portions'},
-    {id:'c03',n:'Viande rouge maigre 1kg',cat:'cgl',unit:'kg',qty:1,low:0.5,step:0.5,price:22.00,note:'Boucherie · 6 repas/mois'},
-    {id:'c04',n:'Viande rouge grasse à mijoter 1kg',cat:'cgl',unit:'kg',qty:1,low:0.5,step:0.5,price:15.00,note:'Boucherie · 6 repas/mois'},
-    {id:'c05',n:'Poulet filet 1kg',cat:'cgl',unit:'kg',qty:1,low:0.5,step:0.5,price:10.00,note:'Drive · 7 repas/mois'},
-    {id:'c06',n:'Merlu surgelé 1kg',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:9.00,note:'Drive · 5 repas/mois · 6 mois conservation'},
-    {id:'c07',n:'Lard frais portionné 200g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:2.00,note:'Drive · 1 lot/mois'},
-    {id:'c08',n:'Épinards surgelés 600g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:1.75,note:'Drive · 1 paquet/mois'},
-    {id:'c09',n:'Aubergine cuite en dés 500g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:0.80,note:'Maison · 1 boîte/mois'},
-    {id:'c10',n:'Purée de brocoli 500g',cat:'cgl',unit:'pc',qty:1,low:1,step:1,price:1.00,note:'Maison · 1 boîte/mois'},
-    {id:'c11',n:'Poivron au congélateur',cat:'cgl',unit:'lot',qty:1,low:1,step:1,price:1.00,note:'Maison ou Drive · 1 lot/mois'},
+    // ===== CONGÉLATEUR (mensuel) — gestion en grammes =====
+    {id:'c01',n:'Saumon surgelé',cat:'cgl',unit:'g',qty:500,low:125,step:50,price:0.023,note:'Drive · 1 sachet 500g/mois · 4 pavés 125g · 4 mois'},
+    {id:'c02',n:'Boudin noir',cat:'cgl',unit:'g',qty:360,low:90,step:50,price:0.0107,note:'Boucherie · 1 pack 360g/mois · 4 portions'},
+    {id:'c03',n:'Viande rouge maigre',cat:'cgl',unit:'g',qty:1000,low:200,step:50,price:0.022,note:'Boucherie · 1kg/mois · 6 repas'},
+    {id:'c04',n:'Viande rouge grasse à mijoter',cat:'cgl',unit:'g',qty:1000,low:200,step:50,price:0.015,note:'Boucherie · 1kg/mois · 6 repas'},
+    {id:'c05',n:'Poulet filet',cat:'cgl',unit:'g',qty:1000,low:200,step:50,price:0.010,note:'Drive · 1kg/mois · 7 repas'},
+    {id:'c06',n:'Merlu surgelé',cat:'cgl',unit:'g',qty:1000,low:200,step:50,price:0.009,note:'Drive · 1kg/mois · 6 mois conservation'},
+    {id:'c07',n:'Lard frais portionné',cat:'cgl',unit:'g',qty:200,low:50,step:50,price:0.010,note:'Drive · 200g/mois'},
+    {id:'c08',n:'Épinards surgelés',cat:'cgl',unit:'g',qty:600,low:150,step:50,price:0.0029,note:'Drive · 600g/mois'},
+    {id:'c09',n:'Aubergine cuite en dés',cat:'cgl',unit:'g',qty:500,low:100,step:50,price:0.0016,note:'Maison · 500g/mois'},
+    {id:'c10',n:'Purée de brocoli',cat:'cgl',unit:'g',qty:500,low:100,step:50,price:0.002,note:'Maison · 500g/mois'},
+    {id:'c11',n:'Poivron au congélateur',cat:'cgl',unit:'g',qty:400,low:100,step:50,price:0.0025,note:'Maison ou Drive · ~400g/mois'},
 
-    // ===== SAUCES & PRÉPARATIONS MAISON =====
-    {id:'sc01',n:'Sardine sauce tomate 250g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:1.50,note:'Maison · sardines+tomate concentrée+oignon · 3 mois congel'},
-    {id:'sc02',n:'Pesto 250g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:2.00,note:'Maison · basilic+amande+huile+ail · 3 mois congel'},
-    {id:'sc03',n:'Sauce poivron basilic 100g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:1.50,note:'Maison · 3 mois congel'},
-    {id:'sc04',n:'Légumes cuits en sauce 200g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:0.80,note:'Maison · 3 mois congel'},
-    {id:'sc05',n:'Pickles oignon rouge 50g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:0.50,note:'Maison · oignon+vinaigre+sucre · 3 sem frigo'},
-    {id:'sc06',n:'Chimichurri 50g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:0.50,note:'Maison · persil+ail+huile+vinaigre · 2 sem frigo'},
-    {id:'sc07',n:'Tomates séchées à l\'huile 200g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:1.00,note:'Maison · 1 mois frigo'},
-    {id:'sc08',n:'Gingembre en pot 250g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:5.00,note:'Épicerie asiatique · 1/trim · 6-12 mois frigo'},
-    {id:'sc09',n:'Ail en pot 250g',cat:'sce',unit:'pc',qty:1,low:1,step:1,price:5.00,note:'Épicerie asiatique · 1/trim · 6-12 mois frigo'},
+    // ===== SAUCES & PRÉPARATIONS MAISON — gestion en grammes =====
+    {id:'sc01',n:'Sardine sauce tomate',cat:'sce',unit:'g',qty:250,low:100,step:50,price:0.006,note:'Maison · sardines+tomate concentrée+oignon · 3 mois congel'},
+    {id:'sc02',n:'Pesto',cat:'sce',unit:'g',qty:250,low:50,step:25,price:0.008,note:'Maison · basilic+amande+huile+ail · 3 mois congel'},
+    {id:'sc03',n:'Sauce poivron basilic',cat:'sce',unit:'g',qty:100,low:50,step:25,price:0.015,note:'Maison · 3 mois congel'},
+    {id:'sc04',n:'Légumes cuits en sauce',cat:'sce',unit:'g',qty:200,low:50,step:50,price:0.004,note:'Maison · 3 mois congel'},
+    {id:'sc05',n:'Pickles oignon rouge',cat:'sce',unit:'g',qty:50,low:25,step:25,price:0.010,note:'Maison · oignon+vinaigre+sucre · 3 sem frigo'},
+    {id:'sc06',n:'Chimichurri',cat:'sce',unit:'g',qty:50,low:25,step:25,price:0.010,note:'Maison · persil+ail+huile+vinaigre · 2 sem frigo'},
+    {id:'sc07',n:'Tomates séchées à l\'huile',cat:'sce',unit:'g',qty:200,low:50,step:25,price:0.005,note:'Maison · 1 mois frigo'},
+    {id:'sc08',n:'Gingembre en pot',cat:'sce',unit:'g',qty:250,low:50,step:25,price:0.020,note:'Épicerie asiatique · 1/trim · 6-12 mois frigo'},
+    {id:'sc09',n:'Ail en pot',cat:'sce',unit:'g',qty:250,low:50,step:25,price:0.020,note:'Épicerie asiatique · 1/trim · 6-12 mois frigo'},
 
     // ===== ÉCONOMAT (trimestriel) =====
     {id:'e01',n:'Riz / Pâtes / Quinoa 3kg',cat:'eco',unit:'kg',qty:3,low:1,step:0.5,price:5.00,note:'Drive · 1 sac/trim · 4 mois'},
@@ -492,9 +493,7 @@ function openCatDetail(id){
   const list=S.items.filter(i=>i.cat===id);
   if(!list.length){dl.innerHTML='<div class="sub">Aucun produit</div>';return}
   list.forEach(i=>{const d=document.createElement('div');d.className='item'+(i.qty<=i.low?' lo':'');
-    d.innerHTML=`<div class="em">${emojiFor(i)}</div><div><b>${i.n}</b><div class="sub">${i.qty} ${i.unit} · ${(i.price||0).toFixed(2)}€/u</div></div><div class="qty"><button data-a="-">−</button><button data-a="+">＋</button></div><button class="btn sm ghost edit">✎</button>`;
-    d.querySelector('[data-a="-"]').addEventListener('click',()=>adj(i.id,-1));
-    d.querySelector('[data-a="+"]').addEventListener('click',()=>adj(i.id,1));
+    d.innerHTML=`<div class="em">${emojiFor(i)}</div><div><b>${i.n}</b><div class="sub">${i.qty} ${i.unit} · ${(i.price||0).toFixed(2)}€/u</div></div><div></div><button class="btn sm ghost edit">✎</button>`;
     d.querySelector('.edit').addEventListener('click',()=>openItemModal(i.id));
     dl.appendChild(d)});
 }

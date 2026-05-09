@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b0f1a"/>
 <title>NakaGestion</title>
 <link rel="manifest" href="manifest.json"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2316a34a'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 50V14h8l16 24V14h6v36h-8L24 28v22z' fill='white'/%3E%3C/svg%3E"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2316a34a'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M14 14h7l14 22V14h7v36h-7L21 28v22h-7z' fill='white'/%3E%3Cpath d='M44 36h10v3H44zM44 41h10v3H44zM44 46h10v3H44z' fill='white' opacity='.85'/%3E%3C/svg%3E"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#f5f7fb;--surface:#fff;--surface-2:#eef1f8;--text:#0e1220;--muted:#5b6478;--border:#e3e6f0;--primary:#16a34a;--primary-2:#06b6d4;--accent:#facc15;--ok:#16c784;--warn:#f59e0b;--danger:#ef4444;--shadow:0 10px 30px -12px rgba(20,25,50,.18);--radius:18px}
@@ -84,7 +84,7 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
 <body>
 <div class="app">
   <header class="top">
-    <div class="logo"><svg viewBox="0 0 64 64" fill="white"><path d="M18 50V14h8l16 24V14h6v36h-8L24 28v22z"/></svg></div>
+    <div class="logo"><svg viewBox="0 0 64 64" fill="white"><path d="M14 14h7l14 22V14h7v36h-7L21 28v22h-7z"/><path d="M44 36h10v3H44zM44 41h10v3H44zM44 46h10v3H44z" opacity=".85"/></svg></div>
     <div><div class="brand">NakaGestion<small>Stocks · Agenda · Bilan</small></div></div>
     <div class="spacer"></div>
     <button class="icon-btn" id="themeBtn" title="Thème">◐</button>
@@ -103,19 +103,19 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
       </div>
     </div>
     <div class="card">
+      <h3 class="title">Budget du mois</h3>
+      <div class="grid2">
+        <div class="kpi"><b id="kBudgetMonth">0€</b><span>À racheter ce mois</span></div>
+        <div class="kpi"><b id="kBudgetYear">0€</b><span>Estimation annuelle</span></div>
+      </div>
+    </div>
+    <div class="card">
       <div class="row" style="justify-content:space-between"><h3 class="title" style="margin:0">À acheter</h3><button class="btn sm primary" data-go="list">Voir tout</button></div>
       <div id="homeShop" style="margin-top:10px"></div>
     </div>
     <div class="card">
       <h3 class="title">Bientôt périmé</h3>
       <div id="homeExp"></div>
-    </div>
-    <div class="card">
-      <h3 class="title">💰 Budget du mois</h3>
-      <div class="grid2">
-        <div class="kpi"><b id="kBudgetMonth">0€</b><span>À racheter ce mois</span></div>
-        <div class="kpi"><b id="kBudgetYear">0€</b><span>Estimation annuelle</span></div>
-      </div>
     </div>
   </section>
 
@@ -387,6 +387,7 @@ document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',
 
 const VIEWS=['home','stocks','prod','list','agenda','bilan'];
 function go(v){
+  if(v==='stocks')S.currentCat='all';
   VIEWS.forEach(x=>$('view-'+x)?.classList.toggle('hidden',x!==v));
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
   ({home:renderHome,stocks:renderItems,prod:renderProd,list:renderShop,agenda:renderCal,bilan:renderBilan}[v])?.();

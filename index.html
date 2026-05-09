@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b0f1a"/>
 <title>NakaGestion</title>
 <link rel="manifest" href="manifest.json"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2316a34a'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M16 48V16h6l20 22V16h6v32h-6L22 26v22z' fill='white'/%3E%3C/svg%3E"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2316a34a'/%3E%3Cstop offset='1' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 50V14h8l16 24V14h6v36h-8L24 28v22z' fill='white'/%3E%3C/svg%3E"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#f5f7fb;--surface:#fff;--surface-2:#eef1f8;--text:#0e1220;--muted:#5b6478;--border:#e3e6f0;--primary:#16a34a;--primary-2:#06b6d4;--accent:#facc15;--ok:#16c784;--warn:#f59e0b;--danger:#ef4444;--shadow:0 10px 30px -12px rgba(20,25,50,.18);--radius:18px}
@@ -84,22 +84,17 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
 <body>
 <div class="app">
   <header class="top">
-    <div class="logo"><svg viewBox="0 0 64 64" fill="white"><path d="M16 48V16h6l20 22V16h6v32h-6L22 26v22z"/></svg></div>
+    <div class="logo"><svg viewBox="0 0 64 64" fill="white"><path d="M18 50V14h8l16 24V14h6v36h-8L24 28v22z"/></svg></div>
     <div><div class="brand">NakaGestion<small>Stocks · Agenda · Bilan</small></div></div>
     <div class="spacer"></div>
     <button class="icon-btn" id="themeBtn" title="Thème">◐</button>
     <button class="icon-btn" id="paletteBtn" title="Palette">◉</button>
-    <label class="avatar" title="Photo de profil">
-      <img id="avImg" alt="" style="display:none"/>
-      <span id="avPh">N</span>
-      <input type="file" accept="image/*" id="avFile" hidden/>
-    </label>
   </header>
 
   <section id="view-home">
     <div class="card">
       <div class="sub" id="todayLabel"></div>
-      <h2 class="title" style="margin:2px 0">Bienvenue</h2>
+      <h2 class="title" style="margin:2px 0">Bienvenue Thiathie</h2>
       <div class="grid4" style="margin-top:10px">
         <div class="kpi"><b id="kItems">0</b><span>Articles</span></div>
         <div class="kpi"><b id="kLow">0</b><span>À racheter</span></div>
@@ -116,12 +111,10 @@ hr{border:none;border-top:1px solid var(--border);margin:14px 0}
       <div id="homeExp"></div>
     </div>
     <div class="card">
-      <h3 class="title">Accès rapide</h3>
-      <div class="grid4">
-        <div class="cat-card" data-go="stocks"><span class="e">📦</span><div class="n">Stock</div></div>
-        <div class="cat-card" data-go="prod"><span class="e">🗂️</span><div class="n">Produits</div></div>
-        <div class="cat-card" data-go="agenda"><span class="e">📅</span><div class="n">Agenda</div></div>
-        <div class="cat-card" data-go="bilan"><span class="e">💰</span><div class="n">Bilan</div></div>
+      <h3 class="title">💰 Budget du mois</h3>
+      <div class="grid2">
+        <div class="kpi"><b id="kBudgetMonth">0€</b><span>À racheter ce mois</span></div>
+        <div class="kpi"><b id="kBudgetYear">0€</b><span>Estimation annuelle</span></div>
       </div>
     </div>
   </section>
@@ -390,9 +383,7 @@ function renderPalettes(){[...$('paletteList').children].forEach(b=>b.classList.
 renderPalettes();
 document.querySelectorAll('[data-theme]').forEach(b=>b.addEventListener('click',()=>{S.theme=b.dataset.theme;applyTheme();save()}));
 
-$('avFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.avatar=r.result;save();renderAvatar()};r.readAsDataURL(f)});
-function renderAvatar(){if(S.avatar){$('avImg').src=S.avatar;$('avImg').style.display='block';$('avPh').style.display='none'}else{$('avImg').style.display='none';$('avPh').style.display='block'}}
-renderAvatar();
+// avatar removed
 
 const VIEWS=['home','stocks','prod','list','agenda','bilan'];
 function go(v){
@@ -427,6 +418,12 @@ function renderHome(){
     const d=document.createElement('div');d.className='item '+cls;
     d.innerHTML=`<div class="em">${emojiFor(i)}</div><div><b>${i.n}</b><div class="sub">Périme dans ${dd} j</div></div><div></div><span class="pill ${dd<=3?'danger':'warn'}">${dd}j</span>`;
     ex.appendChild(d)});
+  // Budget mensuel: prix*qty manquante pour items à racheter ce mois
+  const budgetMonth=low.reduce((s,i)=>s+(i.low-i.qty>0?(i.low-i.qty):1)*(i.price||0),0);
+  const budgetYear=S.items.reduce((s,i)=>s+(i.price||0)*(i.low||1)*4,0); // estimation grossière
+  const bm=$('kBudgetMonth'),by=$('kBudgetYear');
+  if(bm)bm.textContent=Math.round(budgetMonth)+'€';
+  if(by)by.textContent=Math.round(budgetYear)+'€';
 }
 
 document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{S.filter=b.dataset.filter;renderItems()}));
